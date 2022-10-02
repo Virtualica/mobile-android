@@ -7,15 +7,15 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="411dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +24,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="240dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,29 +36,29 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="245dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="248dp"
-                android:layout_height="287dp"
+                android:layout_width="210dp"
+                android:layout_height="203dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginBottom="10dp"
                 android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/recurso4logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="1dp"
@@ -73,7 +73,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Iniciar Sesión"
                 android:textColor="@color/redLogin"
                 android:textSize="25sp"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="37dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 android:hint="Correo o Nombre de usuario"
                 android:textColorHint="@color/hintInput"
@@ -117,12 +117,14 @@
                 android:layout_marginStart="37dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Contraseña"
                 android:textColorHint="@color/hintInput"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/hintInput"
                 app:endIconMode="password_toggle"
                 app:hintTextColor="@color/redLogin"
+                app:layout_constraintBottom_toTopOf="@+id/checkBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +142,7 @@
                 android:id="@+id/checkBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:text="Mantener sesión iniciada"
                 android:textColor="@color/sessionActive"
                 android:textStyle="bold"
@@ -162,7 +164,7 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:width="360dp"
                 android:height="60dp"
                 android:text="Iniciar Sesión"
@@ -176,31 +178,45 @@
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button2"
                 app:srcCompat="@drawable/bar_separator" />
 
             <Button
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:id="@+id/button4"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:width="360dp"
                 android:height="60dp"
-                android:textColor="@color/backgroundButton"
                 android:text="Iniciar con Google"
+                android:textColor="@color/backgroundButton"
                 app:backgroundTint="@color/white"
-                app:strokeColor="@color/backgroundButton"
+                app:icon="@drawable/ic_outline_account_circle_24"
+                app:iconGravity="textStart"
+                app:iconTint="@color/hintInput"
+                app:iconSize="24dp"
                 app:layout_constraintEnd_toEndOf="@+id/button2"
                 app:layout_constraintStart_toStartOf="@+id/button2"
-                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
+                app:strokeColor="@color/backgroundButton" />
+
+            <Button
+                android:id="@+id/button5"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿No tienes cuenta? Registrate"
+                android:textColor="@color/forgetPassword"
+                app:layout_constraintEnd_toEndOf="@+id/button4"
+                app:layout_constraintStart_toStartOf="@+id/button4"
+                app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
