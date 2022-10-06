@@ -24,6 +24,16 @@
         <item name="hintTextColor">@color/redLogin</item>
     </style>
 
+    <style name="InputsTextFieldAutoComplete" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/hintInput</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/hintInput</item>
+        <item name="hintTextColor">@color/redLogin</item>
+    </style>
+
+
     <style name="TextInputEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
