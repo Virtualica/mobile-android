@@ -1,228 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="155dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="Brand Imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/recurso1brand" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="210dp"
+            android:layout_height="203dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Imagen Logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/recurso4logo" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextViewHeader"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Iniciar Sesión"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.112"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
+            style="@style/InputsTextField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="45dp"
+            android:hint="Correo o Nombre de usuario"
+            app:startIconDrawable="@drawable/ic_baseline_mail_outline_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditText"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField1"
+            style="@style/InputsTextField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filledTextField"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="45dp"
+            android:hint="Contraseña"
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/ic_outline_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditText"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            style="@style/CheckBox"
+            app:layout_constraintStart_toStartOf="@+id/filledTextField1"
+            app:layout_constraintTop_toBottomOf="@+id/filledTextField1"
+            android:layout_marginTop="5dp"
+            android:text="Mantener sesión iniciada"
+            android:textColor="@color/sessionActive"
+            app:buttonTint="@color/sessionActive" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/ButtonText"
+            app:layout_constraintStart_toStartOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox"
+            android:text="¿Olvidaste tu contraseña?" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Button"
+            app:layout_constraintEnd_toEndOf="@+id/filledTextField1"
+            app:layout_constraintStart_toStartOf="@+id/filledTextField1"
+            android:layout_marginTop="5dp"
+            android:height="60dp"
+            android:text="Iniciar Sesión"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:srcCompat="@drawable/bar_separator" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="155dp"
-                    android:layout_height="66dp"
-                    android:layout_marginTop="25dp"
-                    android:contentDescription="TODO"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/recurso1brand" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="245dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="210dp"
-                    android:layout_height="203dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginBottom="10dp"
-                    android:contentDescription="TODO"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/recurso4logo" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Iniciar Sesión"
-                    android:textColor="@color/redLogin"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.141"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/filledTextField"
-                    style="?attr/textInputFilledStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="37dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:hint="Correo o Nombre de usuario"
-                    android:textColorHint="@color/hintInput"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/hintInput"
-                    app:hintTextColor="@color/redLogin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
-                    app:startIconDrawable="@drawable/ic_baseline_mail_outline_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/button4"
+            style="@style/ButtonOutline"
+            app:layout_constraintEnd_toEndOf="@+id/button2"
+            app:layout_constraintStart_toStartOf="@+id/button2"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            android:layout_marginTop="25dp"
+            android:text="Iniciar con Google"
+            app:icon="@drawable/ic_outline_account_circle_24"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"/>
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/filledTextField1"
-                    style="?attr/textInputFilledStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="37dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="Contraseña"
-                    android:textColorHint="@color/hintInput"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/hintInput"
-                    app:endIconMode="password_toggle"
-                    app:hintTextColor="@color/redLogin"
-                    app:layout_constraintBottom_toTopOf="@+id/checkBox"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/filledTextField"
-                    app:startIconDrawable="@drawable/ic_outline_lock_24">
+        <Button
+            android:id="@+id/button5"
+            style="@style/ButtonText"
+            app:layout_constraintEnd_toEndOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="@+id/button4"
+            app:layout_constraintTop_toBottomOf="@+id/button4"
+            android:text="¿No tienes cuenta? Registrate" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Mantener sesión iniciada"
-                    android:textColor="@color/sessionActive"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/sessionActive"
-                    app:layout_constraintStart_toStartOf="@+id/filledTextField1"
-                    app:layout_constraintTop_toBottomOf="@+id/filledTextField1" />
-
-                <Button
-                    android:id="@+id/button"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿Olvidaste tu contraseña?"
-                    android:textColor="@color/forgetPassword"
-                    app:layout_constraintStart_toStartOf="@+id/checkBox"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:width="360dp"
-                    android:height="60dp"
-                    android:text="Iniciar Sesión"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:backgroundTint="@color/backgroundButton"
-                    app:layout_constraintStart_toStartOf="@+id/filledTextField1"
-                    app:layout_constraintTop_toBottomOf="@+id/button" />
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button2"
-                    app:srcCompat="@drawable/bar_separator" />
-
-                <Button
-                    android:id="@+id/button4"
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:width="360dp"
-                    android:height="60dp"
-                    android:text="Iniciar con Google"
-                    android:textColor="@color/backgroundButton"
-                    app:backgroundTint="@color/white"
-                    app:icon="@drawable/ic_outline_account_circle_24"
-                    app:iconGravity="textStart"
-                    app:iconSize="24dp"
-                    app:iconTint="@color/hintInput"
-                    app:layout_constraintEnd_toEndOf="@+id/button2"
-                    app:layout_constraintStart_toStartOf="@+id/button2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5"
-                    app:strokeColor="@color/backgroundButton" />
-
-                <Button
-                    android:id="@+id/button5"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿No tienes cuenta? Registrate"
-                    android:textColor="@color/forgetPassword"
-                    app:layout_constraintEnd_toEndOf="@+id/button4"
-                    app:layout_constraintStart_toStartOf="@+id/button4"
-                    app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-
-
-    </ScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</ScrollView>
