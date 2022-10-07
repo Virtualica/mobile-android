@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="210dp"
-            android:layout_height="203dp"
+            android:layout_width="158dp"
+            android:layout_height="164dp"
             android:layout_marginTop="10dp"
             android:contentDescription="Imagen Logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
             android:text="¿Olvidaste tu contraseña?" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnLogin"
             style="@style/Button"
             app:layout_constraintEnd_toEndOf="@+id/filledTextField1"
             app:layout_constraintStart_toStartOf="@+id/filledTextField1"
@@ -125,16 +125,16 @@
             android:id="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/bar_separator" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnLoginGoogle"
             style="@style/ButtonOutline"
-            app:layout_constraintEnd_toEndOf="@+id/button2"
-            app:layout_constraintStart_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+            app:layout_constraintStart_toStartOf="@+id/btnLogin"
             app:layout_constraintTop_toTopOf="@+id/imageView5"
             android:layout_marginTop="25dp"
             android:text="Iniciar con Google"
@@ -144,11 +144,11 @@
 
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnCreateAccount"
             style="@style/ButtonText"
-            app:layout_constraintEnd_toEndOf="@+id/button4"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/button4"
+            app:layout_constraintEnd_toEndOf="@+id/btnLoginGoogle"
+            app:layout_constraintStart_toStartOf="@+id/btnLoginGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginGoogle"
             android:text="¿No tienes cuenta? Registrate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
