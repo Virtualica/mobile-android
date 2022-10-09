@@ -1,6 +1,8 @@
 package com.virtualica.mobile_android
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -8,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class FragmentActivity : AppCompatActivity() {
 
     private lateinit var navigator:BottomNavigationView
+    private lateinit var profile:ImageView
     //private lateinit var newTaskFragment: NewTaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,13 @@ class FragmentActivity : AppCompatActivity() {
             }
             true
         }
+
+        profile = findViewById(R.id.profile)
+        profile.setOnClickListener {
+            val intent = Intent(this, RegisterView::class.java)
+            startActivity(intent)
+        }
+
     }
     fun showFragment(fragment: Fragment) {
         /*
