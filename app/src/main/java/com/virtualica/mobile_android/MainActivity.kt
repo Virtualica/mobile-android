@@ -27,5 +27,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterView::class.java)
             startActivity(intent)
         }
+
+        btnLogin.setOnClickListener(){
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnLoginGoogle.setOnClickListener(){
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
