@@ -13,14 +13,12 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent
 /**
  * A fragment representing a list of Items.
  */
-class categoryFragment : Fragment() {
+class topicsFragment : Fragment() {
 
-    private var columnCount = 1
+    private var columnCount = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val categories = arrayOf("Español", "Matematicas", "Ingles", "Biologia", "Quimica", "Fisica")
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
@@ -31,7 +29,7 @@ class categoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_item_list2, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -40,7 +38,7 @@ class categoryFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MycategoryRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                adapter = MytopicsRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view
@@ -54,7 +52,7 @@ class categoryFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            categoryFragment().apply {
+            topicsFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
