@@ -11,6 +11,7 @@ class FragmentActivity : AppCompatActivity() {
 
     private lateinit var navigator:BottomNavigationView
     private lateinit var profile:ImageView
+    private lateinit var logo:ImageView
     //private lateinit var newTaskFragment: NewTaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +35,15 @@ class FragmentActivity : AppCompatActivity() {
 
         profile = findViewById(R.id.profile)
         profile.setOnClickListener {
-            val intent = Intent(this, RegisterView::class.java)
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
+        logo = findViewById(R.id.logo)
+        logo.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     fun showFragment(fragment: Fragment) {
         /*

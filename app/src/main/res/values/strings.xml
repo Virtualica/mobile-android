@@ -10,6 +10,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="appbar_scrolling_view_behavior">Scrolling View</string>
+    <string name="nombre_perfil"><b>Juan Camilo Rojas</b></string>
     <array name="Institutions">
         <item>ICESI</item>
         <item>Javeriana</item>
