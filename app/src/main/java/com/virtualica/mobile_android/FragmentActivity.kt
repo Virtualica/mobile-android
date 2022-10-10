@@ -41,7 +41,7 @@ class FragmentActivity : AppCompatActivity() {
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, FragmentActivity::class.java)
             startActivity(intent)
         }
     }
