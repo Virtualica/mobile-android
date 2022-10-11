@@ -38,7 +38,7 @@ class topicsFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MytopicsRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                //adapter = MytopicsRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view

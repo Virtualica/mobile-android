@@ -17,13 +17,14 @@ class FragmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_bar)
+        showFragment(CategoryFragment.newInstance())
 
 
         navigator = findViewById(R.id.navigator)
 
         navigator.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.book) {
-                showFragment(CategoryView.newInstance())
+                showFragment(CategoryFragment.newInstance())
             } else if (menuItem.itemId == R.id.simulation) {
                 //showFragment(newTaskFragment)
             } else if (menuItem.itemId == R.id.shop) {
