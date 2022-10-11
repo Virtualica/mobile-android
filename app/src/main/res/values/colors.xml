@@ -7,5 +7,6 @@
     <color name="sessionActive">#4b4b6e</color>
     <color name="purple">#951471</color>
     <color name="rose">#fff7f6</color>
+    <color name="blue">#242350</color>
     <color name="backgroundButton">#92106d</color>
 </resources>
