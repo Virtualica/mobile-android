@@ -1,10 +1,10 @@
 package com.virtualica.mobile_android
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.register_container.*
 
 class RegisterView : AppCompatActivity() {
@@ -18,6 +18,19 @@ class RegisterView : AppCompatActivity() {
 
         val adapterComplete = ArrayAdapter(this, R.layout.dropdown_institution, institutions)
         (filledTextField4.editText as? AutoCompleteTextView)?.setAdapter(adapterComplete);
+
+        btnGoLogin.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+        btnRegister.setOnClickListener(){
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }

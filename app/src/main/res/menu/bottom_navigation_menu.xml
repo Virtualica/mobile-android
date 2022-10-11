@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/book"
+        android:enabled="true"
+        android:icon="@drawable/ic_round_menu_book_24"
+        android:title="@string/book_fragment_label"/>
+    <item
+        android:id="@+id/simulation"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_star_outline_24"
+        android:title="@string/simulation_fragment_label"/>
+    <item
+        android:id="@+id/shop"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_shopping_cart_24"
+        android:title="@string/shop_fragment_label" />
+</menu>

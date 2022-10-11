@@ -136,14 +136,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField4"
             style="@style/InputsTextFieldAutoComplete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filledTextField3"
+            android:layout_height="0dp"
             android:layout_marginStart="45dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="45dp"
             android:hint="Institución"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filledTextField3"
             app:startIconDrawable="@drawable/ic_baseline_school_24">
 
             <AutoCompleteTextView
@@ -199,7 +200,7 @@
             app:buttonTint="@color/redLogin" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             style="@style/Button"
             app:layout_constraintEnd_toEndOf="@+id/filledTextField6"
             app:layout_constraintStart_toStartOf="@+id/filledTextField5"
@@ -208,11 +209,11 @@
             android:text="Registrarse" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnGoLogin"
             style="@style/ButtonText"
-            app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-            app:layout_constraintStart_toStartOf="@+id/btnLogin"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="@+id/btnRegister"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister"
             android:layout_marginTop="5dp"
             android:text="Ya tengo una cuenta. Iniciar sesión"/>
         
