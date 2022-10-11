@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
@@ -16,37 +17,37 @@ import com.virtualica.mobile_android.databinding.FragmentItemBinding
 
 
 
-class MycategoryRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<MycategoryRecyclerViewAdapter.ViewHolder>() {
+class MycategoryRecyclerViewAdapter: RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private val titleCat = arrayOf("Matematicas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Ingles")
+    private val textCat = arrayOf("1","2","3","4","5")
+    private val percentageCat = arrayOf("1","2","3","4","5")
+    private val progressBarCat = arrayOf("1","2","3","4","5")
 
-        return ViewHolder(
-            FragmentItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    inner class CategoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
+        var title: TextView = itemView.findViewById(R.id.titleCategoryView)
+        var text: TextView = itemView.findViewById(R.id.categoryText)
+        var percentageNum: TextView = itemView.findViewById(R.id.categoryPercentage)
+        var progressBar : ProgressBar = itemView.findViewById(R.id.progressBarCategory)
 
-    }
+        init {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = ""
-        holder.contentView.text = ""
-    }
-
-    override fun getItemCount(): Int = values.size
-
-    inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.textView2
-        val contentView: TextView = binding.textView3
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item, parent, false)
+        return CategoryViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        holder.title.text = titleCat[position]
+        holder.text.text = textCat[position]
+        holder.percentageNum.text = percentageCat[position]
+        holder.progressBar.progress = Integer.parseInt(progressBarCat[position])
+    }
+
+    override fun getItemCount(): Int {
+        return titleCat.size
+    }
 }

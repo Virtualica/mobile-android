@@ -12,19 +12,18 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var navigator:BottomNavigationView
     private lateinit var profile:ImageView
     private lateinit var logo:ImageView
-    private lateinit var categoryFragment: categoryFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_bar)
 
-        categoryFragment = categoryFragment()
 
         navigator = findViewById(R.id.navigator)
 
         navigator.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.book) {
-                showFragment(categoryFragment)
+                showFragment(CategoryView.newInstance())
             } else if (menuItem.itemId == R.id.simulation) {
                 //showFragment(newTaskFragment)
             } else if (menuItem.itemId == R.id.shop) {
