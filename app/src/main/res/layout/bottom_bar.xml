@@ -87,6 +87,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigator"
+        style="@style/Theme.Material3.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
