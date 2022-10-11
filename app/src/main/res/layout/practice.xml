@@ -4,34 +4,51 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent" android:id="@+id/progressbar">
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="369dp"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminate="true"
-            android:indeterminateTint="#E85E33" android:visibility="visible" tools:visibility="visible"
-            android:id="@+id/progressBar" android:layout_marginEnd="68dp" android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/back"/>
+        android:id="@+id/progressBar"
+        android:layout_width="369dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="88dp"
+        android:indeterminate="true"
+        android:indeterminateTint="#E85E33"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        tools:visibility="visible" />
+
     <ImageView
-            android:layout_width="33dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/leftarrow" android:id="@+id/back"
-            android:layout_marginEnd="440dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="28dp"/>
+        android:id="@+id/back"
+        android:layout_width="33dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="500dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/leftarrow" />
+
     <androidx.fragment.app.FragmentContainerView
-            android:layout_width="404dp"
-            android:layout_height="623dp" android:name="com.virtualica.mobile_android.QuestionFragment"
-            android:id="@+id/practice_questions_contanier"
-            android:layout_marginEnd="56dp"
-            app:layout_constraintEnd_toEndOf="parent" tools:layout="@layout/question"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginTop="26dp" app:layout_constraintTop_toBottomOf="@+id/progressBar"/>
+        android:id="@+id/practice_questions_contanier"
+        android:name="com.virtualica.mobile_android.QuestionFragment"
+        android:layout_width="404dp"
+        android:layout_height="623dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        tools:layout="@layout/question" />
+
     <Button
-            android:text="Siguiente"
-            android:layout_width="272dp"
-            android:layout_height="49dp" android:id="@+id/next"
-            style="@style/Button" android:layout_marginTop="28dp"
-            app:layout_constraintTop_toBottomOf="@+id/practice_questions_contanier" android:layout_marginEnd="124dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        android:id="@+id/next"
+        style="@style/Button"
+        android:layout_width="272dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="148dp"
+        android:text="Siguiente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/practice_questions_contanier" />
 </androidx.constraintlayout.widget.ConstraintLayout>

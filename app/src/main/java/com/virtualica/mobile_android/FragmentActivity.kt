@@ -2,6 +2,7 @@ package com.virtualica.mobile_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,7 +13,7 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var navigator:BottomNavigationView
     private lateinit var profile:ImageView
     private lateinit var logo:ImageView
-    //private lateinit var newTaskFragment: NewTaskFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,9 @@ class FragmentActivity : AppCompatActivity() {
             if (menuItem.itemId == R.id.book) {
                 //showFragment(newTaskFragment)
             } else if (menuItem.itemId == R.id.simulation) {
-                //showFragment(newTaskFragment)
+                showFragment(SimulationFragment.newInstance())
+                navigator.visibility = View.GONE
+
             } else if (menuItem.itemId == R.id.shop) {
                 //showFragment(newTaskFragment)
             }
@@ -46,10 +49,11 @@ class FragmentActivity : AppCompatActivity() {
         }
     }
     fun showFragment(fragment: Fragment) {
-        /*
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
         transaction.commit()
-         */
+
     }
+
+
 }
