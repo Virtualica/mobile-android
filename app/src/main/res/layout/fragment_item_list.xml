@@ -27,14 +27,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listInCategory"
-        android:layout_width="412dp"
-        android:layout_height="623dp"
-        android:layout_marginTop="72dp"
-        android:paddingStart="80dp"
-        android:paddingEnd="10dp"
+        android:layout_width="326dp"
+        android:layout_height="612dp"
+        android:layout_marginTop="48dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:listitem="@layout/fragment_item" />

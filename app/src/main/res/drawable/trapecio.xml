@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:height="140dp"
+        android:width="210dp"
+        android:left="110dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#E63222"/>
+
+            <corners android:topRightRadius="12dp"
+                android:bottomRightRadius="63dp"/>
+        </shape>
+    </item>
+    <!-- Colored rectangle-->
+    <item android:width="230dp"
+        android:height="140dp">
+        <shape android:shape="rectangle">
+
+            <solid android:color="#FFEBEA"/>
+            <corners android:topLeftRadius="12dp"
+                android:bottomLeftRadius="12dp"/>
+
+
+        </shape>
+    </item>
+    <!-- Darker colored line-->
+
+
+    <!-- This rectangle for the right side -->
+    <!-- Their color should be the same as layout's background -->
+
+    <!-- This rectangle for the left side -->
+
+</layer-list>

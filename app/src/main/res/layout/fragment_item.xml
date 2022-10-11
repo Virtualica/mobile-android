@@ -5,70 +5,79 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="40dp"
+    android:background="@drawable/trapecio"
+    android:layout_marginBottom="25dp"
     >
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageFilterView"
-        android:layout_width="277dp"
-        android:layout_height="138dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp"
-        tools:srcCompat="@drawable/disenotres"
-        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/titleCategoryView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/categoryText"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="56dp"
-        android:layout_height="57dp"
-        android:text="Button"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="322dp"
+        android:layout_height="145dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/categoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleCategoryView" />
+        <TextView
+            android:id="@+id/titleCategoryView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.126" />
 
-    <ProgressBar
-        android:id="@+id/progressBarCategory"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="98dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.177"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryText"
-        app:layout_constraintVertical_bias="0.428" />
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarCategory"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="0.082"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCategoryView"
+            app:layout_constraintVertical_bias="0.187" />
 
-    <TextView
-        android:id="@+id/categoryPercentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/progressBarCategory" />
+        <ProgressBar
+            android:id="@+id/progressBarCategory"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="158dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCategoryView"
+            app:layout_constraintVertical_bias="0.697" />
+
+        <TextView
+            android:id="@+id/categoryPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="158dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/progressBarCategory"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.769" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.907"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.478"
+            app:srcCompat="@drawable/ic_baseline_arrow_right_alt_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
