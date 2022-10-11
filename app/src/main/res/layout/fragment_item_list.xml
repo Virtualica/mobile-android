@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/listInCategory"
         android:layout_width="412dp"
         android:layout_height="623dp"
         android:layout_marginTop="72dp"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="@string/categoryText"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintBottom_toTopOf="@+id/listInCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

@@ -14,7 +14,7 @@
         android:layout_height="138dp"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="2dp"
-        tools:srcCompat="@drawable/Diseno3"
+        tools:srcCompat="@drawable/disenotres"
         tools:ignore="MissingConstraints" />
 
     <TextView
