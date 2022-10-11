@@ -13,5 +13,5 @@
         android:id="@+id/shop"
         android:enabled="true"
         android:icon="@drawable/ic_outline_shopping_cart_24"
-        android:title="@string/shop_fragment_label"/>
+        android:title="@string/shop_fragment_label" />
 </menu>

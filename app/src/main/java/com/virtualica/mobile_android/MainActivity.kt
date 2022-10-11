@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         //re.layoutManager = GridLayoutManager(applicationContext,2)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_item_list2)
+        setContentView(R.layout.activity_main)
+
 
         btnCreateAccount.setOnClickListener(){
             val intent = Intent(this, RegisterView::class.java)

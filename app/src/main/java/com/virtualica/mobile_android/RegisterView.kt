@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.register_container.*
 
 class RegisterView : AppCompatActivity() {
@@ -26,9 +24,13 @@ class RegisterView : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
         btnRegister.setOnClickListener(){
             val intent = Intent(this, FragmentActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 }

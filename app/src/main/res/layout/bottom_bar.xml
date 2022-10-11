@@ -5,7 +5,8 @@
 
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -14,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:liftOnScroll="true">
+        app:liftOnScroll="true"
+        android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/materialToolbar"
@@ -58,7 +60,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:srcCompat="@drawable/orange_bar_separator" />
+            app:srcCompat="@drawable/orange_bar_separator"
+            android:background="@color/white"/>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -91,7 +94,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@drawable/bottom_bar_ic_text"
-        app:itemTextColor="@drawable/bottom_bar_ic_text">
+        app:itemTextColor="@drawable/bottom_bar_ic_text"
+        android:background="@color/white"
+        >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
