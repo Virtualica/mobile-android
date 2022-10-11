@@ -10,28 +10,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:indeterminate="true"
             android:indeterminateTint="#E85E33" android:visibility="visible" tools:visibility="visible"
-            android:id="@+id/progressBar" android:layout_marginEnd="68dp" android:layout_marginTop="8dp"
+            android:id="@+id/progressBar" android:layout_marginEnd="68dp" android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@+id/back"/>
     <ImageView
             android:layout_width="33dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/leftArrow" android:id="@+id/back"
+            app:srcCompat="@drawable/leftarrow" android:id="@+id/back"
             android:layout_marginEnd="440dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="28dp"/>
     <androidx.fragment.app.FragmentContainerView
-            android:layout_width="399dp"
-            android:layout_height="592dp" android:name="com.virtualica.mobile_android.QuestionFragment"
+            android:layout_width="404dp"
+            android:layout_height="623dp" android:name="com.virtualica.mobile_android.QuestionFragment"
             android:id="@+id/practice_questions_contanier"
-            android:layout_marginTop="11dp"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" android:layout_marginEnd="56dp"
+            android:layout_marginEnd="56dp"
             app:layout_constraintEnd_toEndOf="parent" tools:layout="@layout/question"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="26dp" app:layout_constraintTop_toBottomOf="@+id/progressBar"/>
     <Button
             android:text="Siguiente"
             android:layout_width="272dp"
             android:layout_height="49dp" android:id="@+id/next"
-            style="@style/Button" android:layout_marginTop="48dp"
-            app:layout_constraintTop_toBottomOf="@+id/practice_questions_contanier" android:layout_marginEnd="120dp"
+            style="@style/Button" android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/practice_questions_contanier" android:layout_marginEnd="124dp"
             app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

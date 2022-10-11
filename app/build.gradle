@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.virtualica.mobile_android"
-        minSdk 23
-        targetSdk 32
+        minSdk 30
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
