@@ -9,20 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import com.virtualica.mobile_android.databinding.FragmentItemListBinding
 import com.virtualica.mobile_android.placeholder.PlaceholderContent
+import kotlinx.android.synthetic.main.bottom_bar.*
 
 /**
  * A fragment representing a list of Items.
  */
-class topicsFragment : Fragment() {
+class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 3
     private lateinit var elementsList: ListView
     private var _binding : FragmentItemListBinding? = null
     private val  binding get() = _binding!!
 
-    private val adapter = MytopicsRecyclerViewAdapter()
+    private val adapter = MytopicsRecyclerViewAdapter(this)
 
 
     override fun onCreateView(
@@ -49,5 +51,12 @@ class topicsFragment : Fragment() {
     companion object{
         @JvmStatic
         fun newInstance() = topicsFragment()
+    }
+
+    override fun onItemClick(fragment: Fragment) {
+
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
+
+       // Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
     }
 }

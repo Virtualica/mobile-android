@@ -1,12 +1,16 @@
 package com.virtualica.mobile_android
 
-import android.os.Bundle
+import android.content.Intent
+  import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.virtualica.mobile_android.databinding.PracticeBinding
-import com.virtualica.mobile_android.databinding.SimulationBinding
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigator
+import kotlinx.android.synthetic.main.bottom_bar.*
+
+import kotlinx.android.synthetic.main.practice.view.*
 
 
 /**
@@ -15,8 +19,6 @@ import com.virtualica.mobile_android.databinding.SimulationBinding
  * create an instance of this fragment.
  */
 class TrainFragment : Fragment() {
-    private var _binding: PracticeBinding? = null
-    private val binding get() = _binding!!
 
 
     override fun onCreateView(
@@ -24,13 +26,21 @@ class TrainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = PracticeBinding.inflate(inflater,container,false)
-        return binding.root
+        val view:View = inflater.inflate(R.layout.practice,container,false)
+
+        view.back_practice.setOnClickListener(){
+            val topicsFragment = topicsFragment()
+            val transaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragmentContainer,topicsFragment)
+            transaction?.commit()
+        }
+
+        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+
     }
 
     companion object {

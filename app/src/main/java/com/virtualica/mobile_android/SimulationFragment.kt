@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.simulation.*
 import kotlinx.android.synthetic.main.simulation.view.*
 
 class SimulationFragment : Fragment() {
-    private var _binding: SimulationBinding? = null
-    private val binding get() = _binding!!
+
+
 
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class SimulationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+
     }
 
     companion object {

@@ -9,8 +9,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/back_simul"
@@ -30,6 +32,7 @@
             android:layout_marginEnd="118dp"
             android:text="Siguiente"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/backToQuestion"
             app:layout_constraintTop_toBottomOf="@+id/simulate_questions_contanier" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -67,6 +70,7 @@
             android:layout_marginStart="98dp"
             android:layout_marginTop="1dp"
             android:text="Volver"
+            app:layout_constraintEnd_toStartOf="@+id/next"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/simulate_questions_contanier" />
 

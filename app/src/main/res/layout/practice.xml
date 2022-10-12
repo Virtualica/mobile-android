@@ -8,7 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/next"
@@ -48,7 +52,7 @@
             android:id="@+id/progressBar"
             android:layout_width="369dp"
             android:layout_height="0dp"
-            android:indeterminate="true"
+            android:indeterminate="false"
             android:indeterminateTint="#E85E33"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"

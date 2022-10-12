@@ -52,7 +52,7 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
     override fun onItemClick(fragment: Fragment) {
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
 
-        Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
     }
 
 
