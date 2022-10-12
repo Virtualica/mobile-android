@@ -1,22 +1,15 @@
 package com.virtualica.mobile_android
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.virtualica.mobile_android.databinding.FragmentItemListBinding
-import kotlinx.android.synthetic.main.fragment_item_list.*
-import kotlinx.android.synthetic.main.register_container.*
 
-class CategoryView : Fragment() {
+class CategoryFragment : Fragment() {
 
     private lateinit var elementsList: ListView
     private var _binding : FragmentItemListBinding? = null
@@ -44,7 +37,7 @@ class CategoryView : Fragment() {
     }
     companion object{
         @JvmStatic
-        fun newInstance() = CategoryView()
+        fun newInstance() = CategoryFragment()
     }
 
 

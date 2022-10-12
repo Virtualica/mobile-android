@@ -15,14 +15,18 @@ import com.virtualica.mobile_android.databinding.FragmentItemBinding
  * TODO: Replace the implementation with code for your data type.
  */
 
-
-
-class MycategoryRecyclerViewAdapter: RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
+class MycategoryRecyclerViewAdapter:
+    RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
     private val titleCat = arrayOf("Matematicas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Ingles")
-    private val textCat = arrayOf("1","2","3","4","5")
-    private val percentageCat = arrayOf("1","2","3","4","5")
-    private val progressBarCat = arrayOf("1","2","3","4","5")
+    private val textCat = arrayOf(
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+    private val percentageCat = arrayOf("10%","20%","30%","40%","50%")
+    private val progressBarCat = arrayOf("10","20","30","40","50")
 
     inner class CategoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.titleCategoryView)
