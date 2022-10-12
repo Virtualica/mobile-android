@@ -21,7 +21,7 @@ class FragmentActivity : AppCompatActivity() {
 
 
         navigator = findViewById(R.id.navigator)
-        showFragment(CategoryView.newInstance())
+        showFragment(CategoryFragment.newInstance())
         navigator.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.book) {
                 showFragment(CategoryFragment.newInstance())
