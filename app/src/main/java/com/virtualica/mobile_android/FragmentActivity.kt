@@ -34,7 +34,7 @@ class FragmentActivity : AppCompatActivity() {
 
 
         navigator = findViewById(R.id.navigator)
-
+        showFragment(CategoryFragment.newInstance())
         navigator.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.book) {
                 showFragment(CategoryFragment.newInstance())
@@ -70,7 +70,7 @@ class FragmentActivity : AppCompatActivity() {
 
 
     }
-    fun showFragment(fragment: Fragment) {
+    private fun showFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
         transaction.commit()
