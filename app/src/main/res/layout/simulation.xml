@@ -22,11 +22,11 @@
         tools:visibility="visible" />
 
     <ImageView
-        android:id="@+id/back"
+        android:id="@+id/back_simul"
         android:layout_width="33dp"
         android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="336dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="368dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/leftarrow" />
@@ -61,14 +61,14 @@
         android:id="@+id/textView2"
         android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/baloo_bhai2_bold"
         android:text="Simulacro"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/redLogin"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@id/back"
+        app:layout_constraintStart_toEndOf="@+id/back_simul"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView

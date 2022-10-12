@@ -13,37 +13,22 @@ import com.virtualica.mobile_android.databinding.FragmentItem2Binding
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MytopicsRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<MytopicsRecyclerViewAdapter.ViewHolder>() {
+class MytopicsRecyclerViewAdapter:
+    RecyclerView.Adapter<MytopicsRecyclerViewAdapter.TopicViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    inner class TopicViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
 
-        return ViewHolder(
-            FragmentItem2Binding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    }
+    override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
 
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
+        TODO("Not yet implemented")
     }
 
-    override fun getItemCount(): Int = values.size
-
-    inner class ViewHolder(binding: FragmentItem2Binding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.textView7
-        val contentView: TextView = binding.textView8
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
-        }
+    override fun getItemCount(): Int {
+        TODO("Not yet implemented")
     }
 
 }

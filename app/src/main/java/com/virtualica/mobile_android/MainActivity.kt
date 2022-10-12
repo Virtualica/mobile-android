@@ -42,5 +42,6 @@ class  MainActivity : AppCompatActivity() {
             val intent = Intent(this, FragmentActivity::class.java)
             startActivity(intent)
         }
+
     }
 }
