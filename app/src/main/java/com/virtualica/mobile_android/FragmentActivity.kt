@@ -22,7 +22,7 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var profile:ImageView
     private lateinit var logo:ImageView
     private  lateinit var appBar:AppBarLayout
-    private lateinit var backArrow:Button
+
 
 
 
@@ -51,7 +51,7 @@ class FragmentActivity : AppCompatActivity() {
             true
         }
 
-        Log.e("","mira como si se muestra esto caremondá")
+
 
 
         profile = findViewById(R.id.profile)
