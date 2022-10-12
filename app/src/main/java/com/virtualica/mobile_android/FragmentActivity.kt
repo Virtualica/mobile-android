@@ -14,6 +14,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.virtualica.mobile_android.databinding.SimulationBinding
+import kotlinx.android.synthetic.main.simulation.*
 
 class FragmentActivity : AppCompatActivity() {
 
@@ -22,8 +23,7 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var logo:ImageView
     private  lateinit var appBar:AppBarLayout
     private lateinit var backArrow:Button
-    private var _binding : SimulationBinding? = null
-    private val  binding get() = _binding!!
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,6 @@ class FragmentActivity : AppCompatActivity() {
         setContentView(R.layout.bottom_bar)
         showFragment(CategoryFragment.newInstance())
         appBar = findViewById(R.id.appbar)
-
-       _binding = SimulationBinding.inflate(LayoutInflater.from(this))
 
 
         navigator = findViewById(R.id.navigator)
@@ -44,7 +42,8 @@ class FragmentActivity : AppCompatActivity() {
                 //showFragment(SimulationFragment.newInstance())
                 showDialogToSimulate(SimulationFragment.newInstance())
 
-                Log.i("dato:","se muestra cuando carga el simulacro")
+
+               // Log.i("dato:","se muestra cuando carga el simulacro")
 
             } else if (menuItem.itemId == R.id.shop) {
                 //showFragment(newTaskFragment)
@@ -69,6 +68,7 @@ class FragmentActivity : AppCompatActivity() {
         }
 
 
+
     }
     fun showFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
@@ -87,9 +87,13 @@ class FragmentActivity : AppCompatActivity() {
                 showFragment(fragment)
                 navigator.visibility = View.GONE
                 appBar.visibility = View.GONE
+
             }
             .show()
+
     }
+
+
 
 
 }
