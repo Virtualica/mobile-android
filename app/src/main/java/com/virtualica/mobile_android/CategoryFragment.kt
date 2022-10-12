@@ -5,23 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.virtualica.mobile_android.databinding.FragmentItemListBinding
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickListener {
 
     private lateinit var elementsList: ListView
     private var _binding : FragmentItemListBinding? = null
     private val  binding get() = _binding!!
 
-    private val adapter = MycategoryRecyclerViewAdapter()
+    private val adapter = MycategoryRecyclerViewAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
 
         val recycler = binding.listInCategory
@@ -46,6 +48,14 @@ class CategoryFragment : Fragment() {
     private fun setContentView(fragmentItemList: Int) {
 
     }
+
+    override fun onItemClick(fragment: Fragment) {
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
+
+        Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
+    }
+
+
 
 
 }

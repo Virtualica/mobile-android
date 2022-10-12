@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
@@ -16,19 +17,29 @@ import com.virtualica.mobile_android.databinding.FragmentItem2Binding
 class MytopicsRecyclerViewAdapter:
     RecyclerView.Adapter<MytopicsRecyclerViewAdapter.TopicViewHolder>() {
 
+    private val titleTopic = arrayOf("Genetica", "ADN", "Dominancia", "Celulas", "Mitosis")
+    private val percDon  = arrayOf("10%","20%","30%","40%","50%")
+    private val percNum = arrayOf("10","20","30","40","50")
+
     inner class TopicViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+        var title: TextView = itemView.findViewById(R.id.topicTopicView)
+        var percentageDone: TextView = itemView.findViewById(R.id.progressPrecentageTopic)
+        var percentageNum: ProgressBar = itemView.findViewById(R.id.progressBarTopic)
 
     }
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
-
+        holder.title.text = titleTopic[position]
+        holder.percentageDone.text = percDon[position]
+        holder.percentageNum.progress = Integer.parseInt(percNum[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
-        TODO("Not yet implemented")
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item2, parent, false)
+        return TopicViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return percNum.size
     }
 
 }
