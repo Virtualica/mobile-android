@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import com.virtualica.mobile_android.databinding.FragmentItemListBinding
 import com.virtualica.mobile_android.placeholder.PlaceholderContent
 
 /**
@@ -16,46 +18,36 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent
 class topicsFragment : Fragment() {
 
     private var columnCount = 3
+    private lateinit var elementsList: ListView
+    private var _binding : FragmentItemListBinding? = null
+    private val  binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val adapter = MytopicsRecyclerViewAdapter()
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list2, container, false)
+    ): View {
+        _binding = FragmentItemListBinding.inflate(inflater, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                //adapter = MytopicsRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        }
-        return view
+        val recycler = binding.listInCategory
+        recycler.setHasFixedSize(true)
+        recycler.layoutManager = GridLayoutManager(activity, columnCount)
+        recycler.adapter = adapter
+
+
+        return binding.root
     }
 
-    companion object {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
+    companion object{
         @JvmStatic
-        fun newInstance(columnCount: Int) =
-            topicsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        fun newInstance() = topicsFragment()
     }
 }
