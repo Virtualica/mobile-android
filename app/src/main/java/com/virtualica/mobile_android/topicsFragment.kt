@@ -1,5 +1,6 @@
 package com.virtualica.mobile_android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -53,9 +54,10 @@ class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         fun newInstance() = topicsFragment()
     }
 
-    override fun onItemClick(fragment: Fragment) {
-
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
+    override fun onItemClick() {
+        val intent = Intent(this@topicsFragment.requireContext(),TrainActivity::class.java)
+        startActivity(intent)
+       // fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
 
        // Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
     }

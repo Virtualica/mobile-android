@@ -32,7 +32,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
         }
 
         override fun onClick(p0: View?) {
-            itemClickListener.onItemClick(TrainFragment.newInstance())
+            itemClickListener.onItemClick()
         }
 
     }
@@ -52,7 +52,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
     }
 
     interface OnItemClickListener{
-        fun onItemClick(fragment: Fragment)
+        fun onItemClick()
     }
 
 }

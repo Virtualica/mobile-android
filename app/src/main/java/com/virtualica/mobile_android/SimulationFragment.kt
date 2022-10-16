@@ -28,7 +28,7 @@ class SimulationFragment : Fragment() {
        val view:View = inflater.inflate(R.layout.simulation,container,false)
         view.back_simul.setOnClickListener(){
             MaterialAlertDialogBuilder(this@SimulationFragment.requireContext())
-                .setTitle("Nunca es tarde para seguir estudiante, ¿Deseas salir?")
+                .setTitle("Nunca es tarde para seguir estudiando, ¿Deseas salir?")
                 .setNegativeButton("No ¡Sigamos intentando!"){ _, _ ->
 
                 }
