@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
-import com.virtualica.mobile_android.databinding.FragmentItem2Binding
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -43,7 +41,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item2, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.topic_item, parent, false)
         return TopicViewHolder(view)
     }
 

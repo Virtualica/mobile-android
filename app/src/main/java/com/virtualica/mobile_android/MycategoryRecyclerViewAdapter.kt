@@ -4,14 +4,11 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
-import com.virtualica.mobile_android.databinding.FragmentItemBinding
-import org.w3c.dom.Text
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -60,7 +57,7 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         fun onItemClick(fragment: Fragment)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryViewHolder(view)
     }
 
