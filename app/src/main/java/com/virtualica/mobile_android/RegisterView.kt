@@ -3,8 +3,11 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.register_container.*
 
 class RegisterView : AppCompatActivity() {
@@ -26,11 +29,19 @@ class RegisterView : AppCompatActivity() {
 
 
 
-        btnRegister.setOnClickListener(){
-            val intent = Intent(this, FragmentActivity::class.java)
-            startActivity(intent)
-        }
+
+        btnRegister.setOnClickListener(::Register)
 
 
     }
+
+    fun Register(view: View) {
+        Firebase.auth.createUserWithEmailAndPassword(
+            email_input.text.toString(),
+            password_input.text.toString()
+        )
+
+    }
+
+
 }

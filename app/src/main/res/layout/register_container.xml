@@ -109,7 +109,8 @@
             app:startIconDrawable="@drawable/ic_baseline_mail_outline_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditText"/>
+                android:id="@+id/email_input"
+                style="@style/TextInputEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,6 +129,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_input"
                 style="@style/TextInputEditText"
                 android:inputType="textPassword" />
 
