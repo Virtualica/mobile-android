@@ -48,15 +48,14 @@ class  MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
 
-        /*
+
         if(json != "NO_USER"){
             goMainActivity()
         }
-
-         */
 
 
         btnCreateAccount.setOnClickListener(){
@@ -102,8 +101,26 @@ class  MainActivity : AppCompatActivity() {
     }
 
     private val resultLauncher = registerForActivityResult(StartActivityForResult()){res ->
-        println("HOla, aqui va el res: " + res.toString())
+        if(res.resultCode == Activity.RESULT_OK){
+            val taskUser = GoogleSignIn.getSignedInAccountFromIntent(res.data)
+            val accountGoogle = taskUser.result
 
+            if(accountGoogle != null){
+                val credentialUser = GoogleAuthProvider.getCredential(accountGoogle.idToken, null)
+                Firebase.auth.signInWithCredential(credentialUser).addOnSuccessListener {
+                    val user = User(
+                        Firebase.auth.currentUser?.uid.toString(),
+                        accountGoogle.givenName!!,
+                        accountGoogle.email!!,
+                        "ICESI",
+                        "", "", "False"
+                    )
+                    Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+                        goMainActivity()
+                    }
+                }
+            }
+        }
     }
 
 
@@ -112,7 +129,6 @@ class  MainActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-
         val userGoogleActive = GoogleSignIn.getClient(this, userGoogleConfiguration)
         resultLauncher.launch(userGoogleActive.signInIntent)
     }

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "882696430574-6a6sl2nmqrt75j0mplq9rkr2pracbe5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.virtualica.mobile_android",
+            "certificate_hash": "90564fc320bcd6530f2f1300f6a860c130fdada1"
+          }
+        },
+        {
           "client_id": "882696430574-0itjh83mb12rv4d2m40l7eb3hfgstbpe.apps.googleusercontent.com",
           "client_type": 3
         }
