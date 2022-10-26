@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882696430574",
+    "project_id": "virtualica-bank-questions",
+    "storage_bucket": "virtualica-bank-questions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882696430574:android:3a99e4697c35f3b466e4ff",
+        "android_client_info": {
+          "package_name": "com.virtualica.mobile_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882696430574-0itjh83mb12rv4d2m40l7eb3hfgstbpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_71_0GTfWs-YvpXyeBQcWTos_SB_10AU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882696430574-0itjh83mb12rv4d2m40l7eb3hfgstbpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

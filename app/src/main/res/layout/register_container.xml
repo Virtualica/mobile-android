@@ -73,7 +73,8 @@
             app:startIconDrawable="@drawable/ic_baseline_edit_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditText"/>
+                android:id="@+id/name_input"
+                style="@style/TextInputEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,7 +92,8 @@
             app:startIconDrawable="@drawable/ic_outline_account_circle_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditText"/>
+                android:id="@+id/userName_input"
+                style="@style/TextInputEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,6 +171,7 @@
             app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_input"
                 style="@style/TextInputEditText"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -186,8 +189,9 @@
             app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/age_input"
                 style="@style/TextInputEditText"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox

@@ -9,9 +9,11 @@ data class User(
     var institution:String = "",
     var phone: String = "",
     var age: String = "",
-    var isPremiumStudent: Boolean = false
+    var isPremiumStudent: String = ""
 ) : Serializable{
     override fun toString(): String {
         return name
     }
+    constructor(): this("","","","","","", "")
 }
+
