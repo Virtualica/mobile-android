@@ -173,7 +173,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_input"
                 style="@style/TextInputEditText"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -191,7 +192,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/age_input"
                 style="@style/TextInputEditText"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
