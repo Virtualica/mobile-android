@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.virtualica.mobile_android.databinding.FragmentItemListBinding
+import com.virtualica.mobile_android.databinding.CategoryListBinding
 
 class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickListener {
 
     private lateinit var elementsList: ListView
-    private var _binding : FragmentItemListBinding? = null
+    private var _binding : CategoryListBinding? = null
     private val  binding get() = _binding!!
 
     private val adapter = MycategoryRecyclerViewAdapter(this)
@@ -24,7 +24,7 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+        _binding = CategoryListBinding.inflate(inflater, container, false)
 
         val recycler = binding.listInCategory
         recycler.setHasFixedSize(true)
