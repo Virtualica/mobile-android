@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
-import com.virtualica.mobile_android.databinding.FragmentItemListBinding
+import com.virtualica.mobile_android.databinding.TopicListBinding
 import com.virtualica.mobile_android.placeholder.PlaceholderContent
 import kotlinx.android.synthetic.main.bottom_bar.*
 
@@ -22,7 +22,7 @@ class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
 
     private var columnCount = 3
     private lateinit var elementsList: ListView
-    private var _binding : FragmentItemListBinding? = null
+    private var _binding : TopicListBinding? = null
     private val  binding get() = _binding!!
 
     private val adapter = MytopicsRecyclerViewAdapter(this)
@@ -33,7 +33,7 @@ class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+        _binding = TopicListBinding.inflate(inflater, container, false)
 
         val recycler = binding.listInCategory
         recycler.setHasFixedSize(true)
