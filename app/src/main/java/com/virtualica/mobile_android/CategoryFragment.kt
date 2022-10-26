@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.virtualica.mobile_android.databinding.FragmentItemListBinding
 
+
 class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickListener {
 
     private lateinit var elementsList: ListView
