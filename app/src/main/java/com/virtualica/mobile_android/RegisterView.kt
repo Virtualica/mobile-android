@@ -3,23 +3,40 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.virtualica.mobile_android.models.Institution
 import com.virtualica.mobile_android.models.User
+import com.virtualica.mobile_android.models.Virtualica
 import kotlinx.android.synthetic.main.register_container.*
 
 class RegisterView : AppCompatActivity() {
+
+    private val db = Firebase.firestore
+    private var vr : Virtualica = Virtualica();
+
+    public fun getVirtualica(virtualica: Virtualica){
+        vr = virtualica;
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_container);
 
+
+
+
         val institutions = arrayOf("ICESI", "Javeriana", "Helmer Pardo", "Gabriel Suarez");
+
+        getInstitutions();
+
 
         val adapterComplete = ArrayAdapter(this, R.layout.dropdown_institution, institutions)
         (filledTextField4.editText as? AutoCompleteTextView)?.setAdapter(adapterComplete);
@@ -67,19 +84,14 @@ class RegisterView : AppCompatActivity() {
                 "false"
             )
 
-                Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
-                        sendVerificationViaEmail()
-                        finish()
+            vr.addUserToList(user)
 
-                }
+            Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+                sendVerificationViaEmail()
+                finish()
 
-
-
+            }
         }
-
-
-
-
     }
 
     fun sendVerificationViaEmail(){
@@ -87,6 +99,18 @@ class RegisterView : AppCompatActivity() {
             Toast.makeText(this,"Se ha envidado un correo de verificacion",Toast.LENGTH_SHORT)
         }?.addOnFailureListener{
             Toast.makeText(this,it.message,Toast.LENGTH_SHORT)
+        }
+    }
+
+    fun getInstitutions(){
+        db.collection("institutions").get().addOnSuccessListener{ res ->
+            for (document in res){
+                val newInstitution = document.toObject(Institution::class.java).also {
+                    it.id = document.id
+                }
+                vr.addInstitutionToList(newInstitution);
+            }
+
         }
     }
 

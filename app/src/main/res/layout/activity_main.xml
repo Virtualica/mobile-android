@@ -107,7 +107,7 @@
             app:buttonTint="@color/sessionActive" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnForgetPassword"
             style="@style/ButtonText"
             app:layout_constraintStart_toStartOf="@+id/checkBox"
             app:layout_constraintTop_toBottomOf="@+id/checkBox"
@@ -121,7 +121,7 @@
             android:layout_marginTop="5dp"
             android:height="60dp"
             android:text="Iniciar Sesión"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/btnForgetPassword" />
 
         <ImageView
             android:id="@+id/imageView5"

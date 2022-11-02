@@ -34,19 +34,17 @@ import com.google.gson.Gson
 import com.virtualica.mobile_android.models.User
 import kotlinx.android.synthetic.main.register_container.*
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import com.virtualica.mobile_android.models.Virtualica
 
 class  MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    private var virtualica : Virtualica = Virtualica()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        //re.layoutManager = GridLayoutManager(applicationContext,2)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
@@ -57,11 +55,15 @@ class  MainActivity : AppCompatActivity() {
             goMainActivity()
         }
 
+        val registerView : RegisterView = RegisterView();
+        registerView.getVirtualica(this.virtualica)
 
         btnCreateAccount.setOnClickListener(){
-            val intent = Intent(this, RegisterView::class.java)
+            val intent = Intent(this, registerView::class.java)
             startActivity(intent)
+            finish();
         }
+
 
         btnLogin.setOnClickListener(){
             login(internalMemory)
@@ -69,6 +71,10 @@ class  MainActivity : AppCompatActivity() {
 
         btnLoginGoogle.setOnClickListener(){
             loginGoogle()
+        }
+
+        btnForgetPassword.setOnClickListener(){
+            Log.e("Error", virtualica.getInstitutions().size.toString()+"Sapa")
         }
 
 

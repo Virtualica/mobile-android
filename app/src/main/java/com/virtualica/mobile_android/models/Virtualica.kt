@@ -1,14 +1,11 @@
 package com.virtualica.mobile_android.models
 
+
 class Virtualica() {
 
-    private val users : ArrayList<User>;
-    private val institutions: ArrayList<Institution>;
+    private val users : MutableList<User> = ArrayList()
+    private val institutions: MutableList<Institution> = ArrayList()
 
-    init {
-        users = emptyList<User>() as ArrayList<User>
-        institutions = emptyList<Institution>() as ArrayList<Institution>
-    }
 
     public fun addUserToList (user : User){
         users.add(user)
@@ -17,6 +14,16 @@ class Virtualica() {
     public fun addInstitutionToList (institution: Institution){
         institutions.add(institution)
     }
+
+    public fun getUser() : MutableList<User>{
+        return users
+    }
+
+    public fun getInstitutions() : MutableList<Institution> {
+        return institutions
+    }
+
+
 
 
 }
