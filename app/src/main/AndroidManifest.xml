@@ -47,6 +47,9 @@
         <activity android:name=".TrainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".LoginView"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

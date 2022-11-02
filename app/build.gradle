@@ -9,6 +9,10 @@ android {
     namespace 'com.virtualica.mobile_android'
     compileSdk 31
 
+    androidExtensions{
+        experimental = true
+    }
+
     defaultConfig {
         applicationId "com.virtualica.mobile_android"
         minSdk 24
