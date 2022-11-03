@@ -11,21 +11,39 @@ class Virtualica() : Serializable {
     private var institutions: MutableList<Institution> = ArrayList()
 
 
-    public fun addUserToList (user : User){
+    fun addUserToList (user : User){
         users.add(user)
     }
 
-    public fun addInstitutionToList (institution: Institution){
+    fun addInstitutionToList (institution: Institution){
         institutions.add(institution)
     }
 
-    public fun getUser() : MutableList<User>{
+    fun getUser() : MutableList<User>{
         return users
     }
 
-    public fun getInstitutions() : MutableList<Institution> {
+    fun getInstitutions() : MutableList<Institution> {
         return institutions
     }
 
+    fun validateInstitution(msg : String) : Boolean {
+        for (ins in institutions){
+            if(msg == ins.nombre){
+                return true
+            }
+        }
+        return false
+    }
 
+    fun validateStudentInInstitution(email : String, institutionName : String) : Boolean{
+        for (est in institutions){
+            if(est.nombre == institutionName){
+                if(est.estudiantes == email){
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

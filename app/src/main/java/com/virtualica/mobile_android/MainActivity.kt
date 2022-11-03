@@ -60,7 +60,6 @@ class  MainActivity : AppCompatActivity() {
                     it.id = document.id
                 }
                 virtualica.addInstitutionToList(newInstitution);
-                Log.e("Error", virtualica.getInstitutions().size.toString() + "Por favor")
             }
             goMainActivity()
         }

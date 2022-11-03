@@ -9,7 +9,7 @@ data class Institution(
     var correo:String = "",
     var contrasena:String = "",
     var dominio:String="",
-    var student:String=""
+    var estudiantes:String=""
 ) : Serializable{
     override fun toString(): String {
         return nombre

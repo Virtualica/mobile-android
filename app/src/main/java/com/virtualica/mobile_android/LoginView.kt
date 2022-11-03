@@ -21,18 +21,16 @@ import kotlinx.android.synthetic.main.login_container.*
 
 class LoginView : AppCompatActivity() {
 
-
+    private lateinit var vr : Virtualica
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_container)
 
-
-        val vr : Virtualica = intent.extras?.getSerializable("virtualica") as Virtualica
-
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
 
+        vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
         if(json != "NO_USER"){
             goMainActivity()
@@ -41,6 +39,7 @@ class LoginView : AppCompatActivity() {
 
         btnCreateAccount.setOnClickListener(){
             val intent = Intent(this, RegisterView::class.java)
+            intent.putExtra("virtualica", vr)
             startActivity(intent)
             finish();
         }
@@ -55,7 +54,6 @@ class LoginView : AppCompatActivity() {
         }
 
         btnForgetPassword.setOnClickListener(){
-            Log.e("Error", vr.getInstitutions().size.toString()+"Sapa")
         }
     }
 
@@ -64,21 +62,19 @@ class LoginView : AppCompatActivity() {
         val password = loginPassword.text.toString();
 
         if(username.isNotEmpty() && password.isNotEmpty()){
-
-
             Firebase.auth.signInWithEmailAndPassword(username, password).addOnSuccessListener {
                 val fbUserCurr = Firebase.auth.currentUser
-
                 if(fbUserCurr!!.isEmailVerified){
                     Firebase.firestore.collection("users").document(fbUserCurr.uid).get().addOnSuccessListener {
                         val userActive = it.toObject(User::class.java)
                         keepSessionStarted(userActive!!, iMemory)
                         goMainActivity()
                     }
-
                 } else {
                     Toast.makeText(this, "Por favor, verfica tu cuenta", Toast.LENGTH_SHORT).show()
                 }
+            }.addOnFailureListener{
+                Toast.makeText(this, "Correo o contraseña incorrectos, intenta de nuevo", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, "Ingresa todo los campos", Toast.LENGTH_SHORT).show()
