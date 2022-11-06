@@ -56,12 +56,18 @@ class  MainActivity : AppCompatActivity() {
     private fun getInstitutions(){
         db.collection("institutions").get().addOnSuccessListener{ res ->
             for (document in res){
-                val newInstitution = document.toObject(Institution::class.java).also {
+                document.toObject(Institution::class.java).also {
                     it.id = document.id
+                    db.collection("institutions").document(document.id).collection("estudiantes").get().addOnSuccessListener { estRes ->
+                        for (i in estRes){
+                            val emailString = i.data.values.toString()
+                            it.estudiantes.add(emailString)
+                        }
+                        virtualica.addInstitutionToList(it)
+                        goMainActivity()
+                    }
                 }
-                virtualica.addInstitutionToList(newInstitution);
             }
-            goMainActivity()
         }
     }
 

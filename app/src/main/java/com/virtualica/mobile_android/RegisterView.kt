@@ -62,12 +62,8 @@ class RegisterView : AppCompatActivity() {
     private fun updateLabelAge(myCalendar : Calendar){
         val myFormat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        btnAge.setText(sdf.format(myCalendar.time))
+        btnAge.text = sdf.format(myCalendar.time)
     }
-
-
-
-
 
     private fun registerUser(){
         if (email_input.text.toString().isNotEmpty() && password_input.text.toString().isNotEmpty()
@@ -76,7 +72,12 @@ class RegisterView : AppCompatActivity() {
             && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
-                    onRegisterWithAuth()
+                    if (vr.validateStudentInInstitution(email_input.toString(), autoCompleteInstitution.text.toString())){
+                        onRegisterWithAuth()
+                    } else {
+                        Toast.makeText(this,"No perteneces a esta institución",Toast.LENGTH_SHORT).show()
+                    }
+
                 } else {
                     Toast.makeText(this,"Por favor ingresa una instiuticón valida, en caso de" +
                             "no pertencer a alguna selecciona 'Sin institución'",Toast.LENGTH_SHORT).show()
@@ -112,7 +113,6 @@ class RegisterView : AppCompatActivity() {
                     sendVerificationViaEmail()
                 }
             } else {
-                Log.e("Error", "Ahí un problema sapa")
                 Toast.makeText(this, "No perteneces a esta institución", Toast.LENGTH_SHORT).show();
             }
         }.addOnFailureListener{

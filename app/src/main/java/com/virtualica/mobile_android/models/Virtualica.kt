@@ -37,10 +37,14 @@ class Virtualica() : Serializable {
     }
 
     fun validateStudentInInstitution(email : String, institutionName : String) : Boolean{
-        for (est in institutions){
-            if(est.nombre == institutionName){
-                if(est.estudiantes == email){
-                    return true
+        if(institutionName == "Sin institución"){
+            return true
+        } else {
+            for (ins in institutions){
+                if(ins.nombre == institutionName){
+                    if(ins.estudiantes.contains("[$email]")){
+                        return true
+                    }
                 }
             }
         }
