@@ -74,15 +74,20 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        if (position == 1){
-            holder.style.setBackgroundResource(R.drawable.trapecio2)
+        when (position) {
+            1 -> {
+                holder.style.setBackgroundResource(R.drawable.trapecio2)
 
-        }else if (position == 2){
-            holder.style.setBackgroundResource(R.drawable.trapecio3)
-        }else if (position == 3){
-            holder.style.setBackgroundResource(R.drawable.trapecio4)
-        } else if (position == 4){
-            holder.style.setBackgroundResource(R.drawable.trapecio5)
+            }
+            2 -> {
+                holder.style.setBackgroundResource(R.drawable.trapecio3)
+            }
+            3 -> {
+                holder.style.setBackgroundResource(R.drawable.trapecio4)
+            }
+            4 -> {
+                holder.style.setBackgroundResource(R.drawable.trapecio5)
+            }
         }
         holder.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor(colors[position]))
         holder.title.text = titleCat[position]
