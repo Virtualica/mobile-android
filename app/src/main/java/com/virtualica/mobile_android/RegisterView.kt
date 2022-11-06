@@ -1,5 +1,6 @@
 package com.virtualica.mobile_android
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,8 @@ import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.User
 import com.virtualica.mobile_android.models.Virtualica
 import kotlinx.android.synthetic.main.register_container.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterView : AppCompatActivity() {
 
@@ -28,6 +31,8 @@ class RegisterView : AppCompatActivity() {
         val adapterComplete = ArrayAdapter(this, R.layout.dropdown_institution, vr.getInstitutions())
         (filledTextField4.editText as? AutoCompleteTextView)?.setAdapter(adapterComplete)
 
+        setCalendar()
+
         btnGoLogin.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -38,11 +43,37 @@ class RegisterView : AppCompatActivity() {
         }
     }
 
+    private fun setCalendar(){
+        val myCalendar = Calendar.getInstance()
+        val datePicker = DatePickerDialog.OnDateSetListener{view, year, month, dayOfMonth ->
+            myCalendar.set(Calendar.YEAR, year)
+            myCalendar.set(Calendar.MONTH, month)
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabelAge(myCalendar)
+        }
+        btnAge.setOnClickListener{
+            DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+            myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+
+    }
+
+    private fun updateLabelAge(myCalendar : Calendar){
+        val myFormat = "dd-MM-yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        btnAge.setText(sdf.format(myCalendar.time))
+    }
+
+
+
+
+
     private fun registerUser(){
         if (email_input.text.toString().isNotEmpty() && password_input.text.toString().isNotEmpty()
             && name_input.text.toString().isNotEmpty() && userName_input.text.toString().isNotEmpty()
             && autoCompleteInstitution.text.toString().isNotEmpty() && phone_input.text.toString().isNotEmpty()
-            && age_input.text.toString().isNotEmpty()){
+            && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
                     onRegisterWithAuth()
@@ -70,7 +101,7 @@ class RegisterView : AppCompatActivity() {
                 email_input.text.toString(),
                 autoCompleteInstitution.text.toString(),
                 phone_input.text.toString(),
-                age_input.text.toString(),
+                btnAge.text.toString(),
                 "false"
             )
 
