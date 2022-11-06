@@ -27,10 +27,13 @@ class LoginView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_container)
 
+
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
 
+
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
+
 
         if(json != "NO_USER"){
             goMainActivity()
@@ -58,11 +61,12 @@ class LoginView : AppCompatActivity() {
     }
 
     private fun login(iMemory : SharedPreferences){
-        val username = loginEmail.text.toString();
-        val password = loginPassword.text.toString();
+        val username = loginEmail.text.toString()
+        val password = loginPassword.text.toString()
 
         if(username.isNotEmpty() && password.isNotEmpty()){
             Firebase.auth.signInWithEmailAndPassword(username, password).addOnSuccessListener {
+                Log.e("Error", "$username sapa $password")
                 val fbUserCurr = Firebase.auth.currentUser
                 if(fbUserCurr!!.isEmailVerified){
                     Firebase.firestore.collection("users").document(fbUserCurr.uid).get().addOnSuccessListener {
@@ -71,7 +75,7 @@ class LoginView : AppCompatActivity() {
                         goMainActivity()
                     }
                 } else {
-                    Toast.makeText(this, "Por favor, verfica tu cuenta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Por favor, verifica tu cuenta",Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener{
                 Toast.makeText(this, "Correo o contraseña incorrectos, intenta de nuevo", Toast.LENGTH_SHORT).show()
@@ -79,6 +83,16 @@ class LoginView : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Ingresa todo los campos", Toast.LENGTH_SHORT).show()
         }
+    }
+
+
+    private fun loginGoogle(){
+        val userGoogleConfiguration = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val userGoogleActive = GoogleSignIn.getClient(this, userGoogleConfiguration)
+        resultLauncher.launch(userGoogleActive.signInIntent)
     }
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ res ->
@@ -102,16 +116,6 @@ class LoginView : AppCompatActivity() {
                 }
             }
         }
-    }
-
-
-    private fun loginGoogle(){
-        val userGoogleConfiguration = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        val userGoogleActive = GoogleSignIn.getClient(this, userGoogleConfiguration)
-        resultLauncher.launch(userGoogleActive.signInIntent)
     }
 
     private fun goMainActivity(){
