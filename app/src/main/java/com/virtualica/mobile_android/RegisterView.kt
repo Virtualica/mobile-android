@@ -72,7 +72,7 @@ class RegisterView : AppCompatActivity() {
             && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
-                    if (vr.validateStudentInInstitution(email_input.toString(), autoCompleteInstitution.text.toString())){
+                    if (vr.validateStudentInInstitution(email_input.text.toString(), autoCompleteInstitution.text.toString())){
                         onRegisterWithAuth()
                     } else {
                         Toast.makeText(this,"No perteneces a esta institución",Toast.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package com.virtualica.mobile_android.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import java.io.Serializable
 
 
@@ -40,9 +41,9 @@ class Virtualica() : Serializable {
         if(institutionName == "Sin institución"){
             return true
         } else {
-            for (ins in institutions){
-                if(ins.nombre == institutionName){
-                    if(ins.estudiantes.contains("[$email]")){
+            for (i in institutions){
+                if( i.nombre == institutionName){
+                    if(i.estudiantes.contains("[$email]")){
                         return true
                     }
                 }
