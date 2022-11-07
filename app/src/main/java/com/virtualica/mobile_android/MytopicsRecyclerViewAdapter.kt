@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.virtualica.mobile_android.models.Themes
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
 
@@ -13,12 +14,10 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderI
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickListener):
+class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickListener, themes: MutableList<Themes>):
     RecyclerView.Adapter<MytopicsRecyclerViewAdapter.TopicViewHolder>() {
 
-    private val titleTopic = arrayOf("Genetica", "ADN", "Dominancia", "Celulas", "Mitosis")
-    private val percDon  = arrayOf("10%","20%","30%","40%","50%")
-    private val percNum = arrayOf("10","20","30","40","50")
+    private val dataThemes = themes
 
     inner class TopicViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         var title: TextView = itemView.findViewById(R.id.topicTopicView)
@@ -35,9 +34,11 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
 
     }
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
-        holder.title.text = titleTopic[position]
-        holder.percentageDone.text = percDon[position]
-        holder.percentageNum.progress = Integer.parseInt(percNum[position])
+        
+
+        holder.title.text = dataThemes[position].nombre
+        holder.percentageDone.text = "100%"
+        holder.percentageNum.progress = Integer.parseInt("100")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
@@ -46,7 +47,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
     }
 
     override fun getItemCount(): Int {
-        return percNum.size
+        return dataThemes.size
     }
 
     interface OnItemClickListener{

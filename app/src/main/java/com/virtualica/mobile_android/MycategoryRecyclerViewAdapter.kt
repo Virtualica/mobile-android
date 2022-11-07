@@ -1,12 +1,8 @@
 package com.virtualica.mobile_android
 
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +11,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.Category
+import com.virtualica.mobile_android.models.Themes
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
 
 /**
@@ -43,12 +42,29 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         }
 
         override fun onClick(v: View?) {
+            val db = Firebase.firestore
             val position: Int = adapterPosition
             if(position != RecyclerView.NO_POSITION){
-                itemClickListener.onItemClick(topicsFragment.newInstance())
+                val fragment = topicsFragment()
+                val bundle = Bundle()
+                val select = dataCategories[position].nombre
+                var count = 0
+                db.collection("temas").whereEqualTo("categoria", select).get().addOnSuccessListener { res ->
+                    for (t in res){
+                        val newT = t.toObject(Themes::class.java).also {
+                            it.id = t.id
+                        }
+                        bundle.putSerializable("theme$count", newT)
+                        count++
+                    }
+                    fragment.arguments = bundle
+                    itemClickListener.onItemClick(fragment)
+                }
             }
         }
     }
+
+
     interface OnItemClickListener{
         fun onItemClick(fragment: Fragment)
     }
@@ -62,7 +78,6 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         when (position) {
             1 -> {
                 holder.style.setBackgroundResource(R.drawable.trapecio2)
-
             }
             2 -> {
                 holder.style.setBackgroundResource(R.drawable.trapecio3)

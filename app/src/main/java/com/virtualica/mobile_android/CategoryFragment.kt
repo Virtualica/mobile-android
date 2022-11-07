@@ -14,7 +14,6 @@ import com.virtualica.mobile_android.models.Category
 
 class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickListener {
 
-    private lateinit var elementsList: ListView
     private var _binding: CategoryListBinding? = null
     private val binding get() = _binding!!
 
@@ -30,11 +29,8 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
             val c : Category = dataCategory.get("category$i") as Category
             categories.add(c)
         }
-
-
         _binding = CategoryListBinding.inflate(inflater, container, false)
         val adapter = MycategoryRecyclerViewAdapter(this, categories)
-
         val recycler = binding.listInCategory
         recycler.setHasFixedSize(true)
         recycler.layoutManager = LinearLayoutManager(activity)
@@ -56,10 +52,6 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
     override fun onItemClick(fragment: Fragment) {
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
     }
-
-
-
-
 }
 
 
