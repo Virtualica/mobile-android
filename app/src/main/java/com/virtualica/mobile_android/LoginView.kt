@@ -15,8 +15,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.virtualica.mobile_android.models.User
-import com.virtualica.mobile_android.models.Virtualica
+import com.virtualica.mobile_android.models.dataClasses.User
+import com.virtualica.mobile_android.models.classes.Virtualica
 import kotlinx.android.synthetic.main.login_container.*
 
 class LoginView : AppCompatActivity() {

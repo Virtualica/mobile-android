@@ -1,4 +1,4 @@
-package com.virtualica.mobile_android.models
+package com.virtualica.mobile_android.models.dataClasses
 
 import java.io.Serializable
 

@@ -3,17 +3,15 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.Institution
-import com.virtualica.mobile_android.models.User
-import com.virtualica.mobile_android.models.Virtualica
+import com.virtualica.mobile_android.models.dataClasses.Institution
+import com.virtualica.mobile_android.models.dataClasses.User
+import com.virtualica.mobile_android.models.classes.Virtualica
 import kotlinx.android.synthetic.main.register_container.*
 
 class RegisterView : AppCompatActivity() {
