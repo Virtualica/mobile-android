@@ -8,7 +8,7 @@ import androidx.core.view.WindowCompat
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.dataClasses.Institution
-import com.virtualica.mobile_android.models.classes.Virtualica
+import com.virtualica.mobile_android.models.Virtualica
 
 class  MainActivity : AppCompatActivity() {
 
@@ -27,13 +27,18 @@ class  MainActivity : AppCompatActivity() {
     private fun getInstitutions(){
         db.collection("institutions").get().addOnSuccessListener{ res ->
             for (document in res){
-                val newInstitution = document.toObject(Institution::class.java).also {
+                document.toObject(Institution::class.java).also {
                     it.id = document.id
+                    db.collection("institutions").document(document.id).collection("estudiantes").get().addOnSuccessListener { estRes ->
+                        for (i in estRes){
+                            val emailString = i.data.values.toString()
+                            it.estudiantes.add(emailString)
+                        }
+                        virtualica.addInstitutionToList(it)
+                        goMainActivity()
+                    }
                 }
-                virtualica.addInstitutionToList(newInstitution);
-                Log.e("Error", virtualica.getInstitutions().size.toString() + "Por favor")
             }
-            goMainActivity()
         }
     }
 

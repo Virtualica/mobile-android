@@ -9,10 +9,10 @@ data class Institution(
     var correo:String = "",
     var contrasena:String = "",
     var dominio:String="",
-    var student:String=""
+    var estudiantes: MutableList<String> = ArrayList()
 ) : Serializable{
     override fun toString(): String {
         return nombre
     }
-    constructor() : this("", "", "", "", "", "", "")
+    constructor() : this("", "", "", "", "", "")
 }

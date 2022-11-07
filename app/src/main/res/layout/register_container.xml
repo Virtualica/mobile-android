@@ -160,7 +160,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField5"
             style="@style/InputsTextField"
-            app:layout_constraintEnd_toStartOf="@+id/filledTextField6"
+            app:layout_constraintEnd_toStartOf="@+id/btnAge"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filledTextField4"
             android:layout_width="0dp"
@@ -177,24 +177,19 @@
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/filledTextField6"
-            style="@style/InputsTextField"
+        <Button
+            android:id="@+id/btnAge"
+            style="@style/ButtonOutline"
+            android:text="Edad"
+            android:textColor="@color/hintInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/filledTextField5"
             app:layout_constraintTop_toBottomOf="@+id/filledTextField4"
             android:layout_width="0dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="45dp"
-            android:hint="Edad"
-            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/age_input"
-                style="@style/TextInputEditText"
-                android:layout_height="wrap_content"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:icon="@drawable/ic_baseline_calendar_month_24"
+            />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -210,7 +205,7 @@
         <Button
             android:id="@+id/btnRegister"
             style="@style/Button"
-            app:layout_constraintEnd_toEndOf="@+id/filledTextField6"
+            app:layout_constraintEnd_toEndOf="@+id/btnAge"
             app:layout_constraintStart_toStartOf="@+id/filledTextField5"
             app:layout_constraintTop_toBottomOf="@+id/checkBox"
             android:layout_marginTop="5dp"

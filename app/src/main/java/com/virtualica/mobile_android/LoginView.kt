@@ -16,22 +16,23 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.virtualica.mobile_android.models.dataClasses.User
-import com.virtualica.mobile_android.models.classes.Virtualica
+import com.virtualica.mobile_android.models.Virtualica
 import kotlinx.android.synthetic.main.login_container.*
 
 class LoginView : AppCompatActivity() {
 
-
+    private lateinit var vr : Virtualica
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_container)
 
 
-        val vr : Virtualica = intent.extras?.getSerializable("virtualica") as Virtualica
-
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
+
+
+        vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
 
         if(json != "NO_USER"){
@@ -41,6 +42,7 @@ class LoginView : AppCompatActivity() {
 
         btnCreateAccount.setOnClickListener(){
             val intent = Intent(this, RegisterView::class.java)
+            intent.putExtra("virtualica", vr)
             startActivity(intent)
             finish();
         }
@@ -55,34 +57,41 @@ class LoginView : AppCompatActivity() {
         }
 
         btnForgetPassword.setOnClickListener(){
-            Log.e("Error", vr.getInstitutions().size.toString()+"Sapa")
         }
     }
 
     private fun login(iMemory : SharedPreferences){
-        val username = loginEmail.text.toString();
-        val password = loginPassword.text.toString();
+        val username = loginEmail.text.toString()
+        val password = loginPassword.text.toString()
 
         if(username.isNotEmpty() && password.isNotEmpty()){
-
-
             Firebase.auth.signInWithEmailAndPassword(username, password).addOnSuccessListener {
                 val fbUserCurr = Firebase.auth.currentUser
-
                 if(fbUserCurr!!.isEmailVerified){
                     Firebase.firestore.collection("users").document(fbUserCurr.uid).get().addOnSuccessListener {
                         val userActive = it.toObject(User::class.java)
                         keepSessionStarted(userActive!!, iMemory)
                         goMainActivity()
                     }
-
                 } else {
-                    Toast.makeText(this, "Por favor, verfica tu cuenta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Por favor, verifica tu cuenta",Toast.LENGTH_SHORT).show()
                 }
+            }.addOnFailureListener{
+                Toast.makeText(this, "Correo o contraseña incorrectos, intenta de nuevo", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, "Ingresa todo los campos", Toast.LENGTH_SHORT).show()
         }
+    }
+
+
+    private fun loginGoogle(){
+        val userGoogleConfiguration = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val userGoogleActive = GoogleSignIn.getClient(this, userGoogleConfiguration)
+        resultLauncher.launch(userGoogleActive.signInIntent)
     }
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ res ->
@@ -106,16 +115,6 @@ class LoginView : AppCompatActivity() {
                 }
             }
         }
-    }
-
-
-    private fun loginGoogle(){
-        val userGoogleConfiguration = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        val userGoogleActive = GoogleSignIn.getClient(this, userGoogleConfiguration)
-        resultLauncher.launch(userGoogleActive.signInIntent)
     }
 
     private fun goMainActivity(){
