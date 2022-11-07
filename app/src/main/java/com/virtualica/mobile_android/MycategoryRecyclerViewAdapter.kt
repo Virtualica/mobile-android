@@ -100,3 +100,4 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         return titleCat.size
     }
 }
+
