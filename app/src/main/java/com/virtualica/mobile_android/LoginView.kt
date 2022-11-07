@@ -66,7 +66,6 @@ class LoginView : AppCompatActivity() {
 
         if(username.isNotEmpty() && password.isNotEmpty()){
             Firebase.auth.signInWithEmailAndPassword(username, password).addOnSuccessListener {
-                Log.e("Error", "$username sapa $password")
                 val fbUserCurr = Firebase.auth.currentUser
                 if(fbUserCurr!!.isEmailVerified){
                     Firebase.firestore.collection("users").document(fbUserCurr.uid).get().addOnSuccessListener {
