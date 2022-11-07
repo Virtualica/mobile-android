@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.virtualica.mobile_android.models.Category
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
 
 /**
@@ -21,21 +23,11 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderI
  * TODO: Replace the implementation with code for your data type.
  */
 
-class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickListener):
+class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickListener, categories : MutableList<Category>):
     RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
-    private val titleCat = arrayOf("Matematicas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Ingles")
-    private val textCat = arrayOf(
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-    private val percentageCat = arrayOf("10%","20%","30%","40%","50%")
-    private val progressBarCat = arrayOf("10","20","30","40","50")
     private val colors = arrayOf("#E63222","#92106D","#524FD8","#3AD89F","#FDCE20")
-
-
+    private val dataCategories = categories
 
 
     inner class CategoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
@@ -45,8 +37,6 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         var progressBar : ProgressBar = itemView.findViewById(R.id.progressBarCategory)
         var style = itemView
 
-        //var ttitle: TextView = itemView.findViewById<TextView>(R.id.textView5)
-        //var ttext: TextView = itemView.findViewById<TextView>(R.id.textView6)
 
         init {
             itemView.setOnClickListener(this)
@@ -55,12 +45,7 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
         override fun onClick(v: View?) {
             val position: Int = adapterPosition
             if(position != RecyclerView.NO_POSITION){
-
-                //ttitle.text = "Temas de la asignatura"
-                //ttext.text = "Disftuta de tu estudio"
-
                 itemClickListener.onItemClick(topicsFragment.newInstance())
-
             }
         }
     }
@@ -90,14 +75,14 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
             }
         }
         holder.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor(colors[position]))
-        holder.title.text = titleCat[position]
-        holder.text.text = textCat[position]
-        holder.percentageNum.text = percentageCat[position]
-        holder.progressBar.setProgress(Integer.parseInt(progressBarCat[position]), true)
+        holder.title.text = dataCategories[position].nombre
+        holder.text.text = dataCategories[position].desc
+        holder.percentageNum.text = dataCategories[position].percentage
+        holder.progressBar.setProgress(Integer.parseInt(dataCategories[position].percentage), true)
     }
 
     override fun getItemCount(): Int {
-        return titleCat.size
+        return dataCategories.size
     }
 }
 

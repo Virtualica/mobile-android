@@ -2,19 +2,16 @@ package com.virtualica.mobile_android
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.virtualica.mobile_android.databinding.SimulationBinding
-import kotlinx.android.synthetic.main.simulation.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.virtualica.mobile_android.models.Category
 
 class FragmentActivity : AppCompatActivity() {
 
@@ -22,6 +19,7 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var profile:ImageView
     private lateinit var logo:ImageView
     private  lateinit var appBar:AppBarLayout
+    private val db = Firebase.firestore
 
 
 
@@ -29,24 +27,22 @@ class FragmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_bar)
-        showFragment(CategoryFragment.newInstance())
+        showFragment()
         appBar = findViewById(R.id.appbar)
 
 
         navigator = findViewById(R.id.navigator)
-        showFragment(CategoryFragment.newInstance())
         navigator.setOnItemSelectedListener { menuItem ->
-            if (menuItem.itemId == R.id.book) {
-                showFragment(CategoryFragment.newInstance())
-            } else if (menuItem.itemId == R.id.simulation) {
-                //showFragment(SimulationFragment.newInstance())
-                showDialogToSimulate(SimulationFragment.newInstance())
-
-
-               // Log.i("dato:","se muestra cuando carga el simulacro")
-
-            } else if (menuItem.itemId == R.id.shop) {
-                //showFragment(newTaskFragment)
+            when (menuItem.itemId) {
+                R.id.book -> {
+                    showFragment()
+                }
+                R.id.simulation -> {
+                    showDialogToSimulate(SimulationFragment.newInstance())
+                }
+                R.id.shop -> {
+                    //showFragment(newTaskFragment)
+                }
             }
             true
         }
@@ -62,7 +58,6 @@ class FragmentActivity : AppCompatActivity() {
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
-           // Log.e("importante:","estan pasando cosas xdxd")
             val intent = Intent(this, FragmentActivity::class.java)
             startActivity(intent)
         }
@@ -70,13 +65,25 @@ class FragmentActivity : AppCompatActivity() {
 
 
     }
-    private fun showFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
+    private fun showFragment() {
+        val fragment = CategoryFragment()
+        val bundle = Bundle()
+        var count = 0
+        db.collection("categorias").get().addOnSuccessListener { res ->
+            for (c in res){
+                val newC = c.toObject(Category::class.java).also {
+                    it.id = c.id
+                }
+                bundle.putSerializable("category${count}", newC)
+                count++
+            }
+            fragment.arguments = bundle
+            val transaction = supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
+            transaction.commit()
+        }
     }
 
-    fun showDialogToSimulate(fragment: Fragment){
+    private fun showDialogToSimulate(fragment: Fragment){
         MaterialAlertDialogBuilder(this)
             .setTitle("Estas a punto iniciar el simulacro, ¿Deseas continuar?")
             .setNegativeButton("No, necesito practicar más"){ _, _ ->
@@ -84,13 +91,19 @@ class FragmentActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             .setPositiveButton("¡Si!"){ _ , _ ->
-                showFragment(fragment)
+                showFragmentSimulacro(fragment)
                 navigator.visibility = View.GONE
                 appBar.visibility = View.GONE
 
             }
             .show()
 
+    }
+
+    private fun showFragmentSimulacro(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, fragment)
+        transaction.commit()
     }
 
 }
