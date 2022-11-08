@@ -2,6 +2,7 @@ package com.virtualica.mobile_android
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
@@ -26,6 +28,7 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
     RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
     private val colors = arrayOf("#E63222","#92106D","#524FD8","#3AD89F","#FDCE20")
+    private val backColors = arrayOf("#FFEBEA","#E5D8E8","#F5F5FE","#DFFFF4","#F3E5C4")
     private val dataCategories = categories
 
 
@@ -75,20 +78,11 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        when (position) {
-            1 -> {
-                holder.style.setBackgroundResource(R.drawable.trapecio2)
-            }
-            2 -> {
-                holder.style.setBackgroundResource(R.drawable.trapecio3)
-            }
-            3 -> {
-                holder.style.setBackgroundResource(R.drawable.trapecio4)
-            }
-            4 -> {
-                holder.style.setBackgroundResource(R.drawable.trapecio5)
-            }
-        }
+        val layerDrawable : LayerDrawable = ContextCompat.getDrawable(holder.style.context, R.drawable.trapecio) as LayerDrawable
+        layerDrawable.getDrawable(0).setTint(Color.parseColor(colors[position]))
+        layerDrawable.getDrawable(1).setTint(Color.parseColor(backColors[position]))
+        holder.style.background = layerDrawable
+
         holder.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor(colors[position]))
         holder.title.text = dataCategories[position].nombre
         holder.text.text = dataCategories[position].desc

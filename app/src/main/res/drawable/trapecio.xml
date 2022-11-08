@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/part">
 
     <item android:height="140dp"
         android:width="210dp"
-        android:left="110dp">
+        android:left="110dp"
+        android:id="@+id/part2">
         <shape android:shape="rectangle">
             <solid android:color="#E63222"/>
 
@@ -13,7 +15,8 @@
     </item>
     <!-- Colored rectangle-->
     <item android:width="230dp"
-        android:height="140dp">
+        android:height="140dp"
+        android:id="@+id/part1">
         <shape android:shape="rectangle">
 
             <solid android:color="#FFEBEA"/>
