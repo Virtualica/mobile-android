@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.Category
+import com.virtualica.mobile_android.models.dataClasses.Category
 
 class FragmentActivity : AppCompatActivity() {
 

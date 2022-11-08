@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.virtualica.mobile_android.models.Themes
+import com.virtualica.mobile_android.models.dataClasses.Themes
 
 import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderItem
 

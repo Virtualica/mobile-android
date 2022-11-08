@@ -3,6 +3,8 @@ package com.virtualica.mobile_android.models
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
+import com.virtualica.mobile_android.models.dataClasses.Institution
+import com.virtualica.mobile_android.models.dataClasses.User
 import java.io.Serializable
 
 
