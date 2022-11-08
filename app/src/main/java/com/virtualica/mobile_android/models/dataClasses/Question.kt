@@ -10,8 +10,9 @@ data class Question(
     var retroalimentacion: String = "",
     var correcta: String = "",
     var enunciado: String = "",
-    var opciones: MutableList<String> = ArrayList()
+    var opciones: MutableList<String> = ArrayList(),
+    var dificultad: String = "",
 ): Serializable{
- constructor() : this("", "", "", "", "", "", "", ArrayList())
+  constructor() : this("", "", "", "", "", "", "", ArrayList(), "")
 }
 
