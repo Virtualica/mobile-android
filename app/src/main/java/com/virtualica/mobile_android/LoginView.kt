@@ -37,6 +37,7 @@ class LoginView : AppCompatActivity() {
 
         if(json != "NO_USER"){
             goMainActivity()
+            finish()
         }
 
 
