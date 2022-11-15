@@ -1,5 +1,6 @@
 package com.virtualica.mobile_android
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
 
     }
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
-        
+
 
         holder.title.text = dataThemes[position].nombre
         holder.percentageDone.text = "100%"
