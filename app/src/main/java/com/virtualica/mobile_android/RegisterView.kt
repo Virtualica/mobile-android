@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.User
+import com.virtualica.mobile_android.models.dataClasses.User
 import com.virtualica.mobile_android.models.Virtualica
 import kotlinx.android.synthetic.main.register_container.*
 import java.text.SimpleDateFormat
