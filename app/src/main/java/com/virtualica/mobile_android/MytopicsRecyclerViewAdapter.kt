@@ -30,7 +30,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
         }
 
         override fun onClick(p0: View?) {
-            itemClickListener.onItemClick()
+            itemClickListener.onItemClick(title.text.toString())
         }
 
     }
@@ -52,7 +52,7 @@ class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickList
     }
 
     interface OnItemClickListener{
-        fun onItemClick()
+        fun onItemClick(name : String)
     }
 
 }

@@ -47,7 +47,7 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
             val db = Firebase.firestore
             val position: Int = adapterPosition
             if(position != RecyclerView.NO_POSITION){
-                val fragment = topicsFragment()
+                val fragment = TopicsFragment()
                 val bundle = Bundle()
                 val select = dataCategories[position].nombre
                 var count = 0
@@ -70,8 +70,8 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
     interface OnItemClickListener{
         fun onItemClick(fragment: Fragment)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryViewHolder(view)
     }

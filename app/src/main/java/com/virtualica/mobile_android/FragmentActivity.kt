@@ -40,9 +40,6 @@ class FragmentActivity : AppCompatActivity() {
                 R.id.simulation -> {
                     showDialogToSimulate(SimulationFragment.newInstance())
                 }
-                R.id.shop -> {
-                    //showFragment(newTaskFragment)
-                }
             }
             true
         }

@@ -5,14 +5,18 @@ import java.io.Serializable
 data class Question(
     var id: String = "",
     var categoria: String = "",
-    var tema: String = "",
-    var foto: String = "",
-    var retroalimentacion: String = "",
     var correcta: String = "",
-    var enunciado: String = "",
-    var opciones: MutableList<String> = ArrayList(),
     var dificultad: String = "",
-): Serializable{
-  constructor() : this("", "", "", "", "", "", "", ArrayList(), "")
+    var enunciado: String = "",
+    var foto: String = "",
+    var institucion: String = "",
+    var retroalimentacion: String = "",
+    var tema: String = "",
+    var A : String = "",
+    var B : String = "",
+    var C : String = "",
+    var D : String = "",
+    ): Serializable{
+  constructor() : this("", "", "", "", "", "", "", "", "", "","","","")
 }
 

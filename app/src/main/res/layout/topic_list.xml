@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".topicsFragment"
+        tools:context=".TopicsFragment"
         tools:listitem="@layout/topic_item"
         android:paddingLeft="20dp"
         >
@@ -37,7 +37,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtPosicion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

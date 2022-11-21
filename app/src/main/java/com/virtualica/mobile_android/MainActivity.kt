@@ -47,7 +47,6 @@ class  MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginView::class.java).apply {
             putExtra("virtualica", virtualica)
         }
-
         startActivity(intent)
         finish();
     }

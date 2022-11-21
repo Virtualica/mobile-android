@@ -7,22 +7,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import com.virtualica.mobile_android.databinding.TopicListBinding
 import com.virtualica.mobile_android.models.dataClasses.Themes
 
 /**
  * A fragment representing a list of Items.
  */
-class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListener {
+class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 3
-    private lateinit var elementsList: ListView
     private var _binding : TopicListBinding? = null
     private val  binding get() = _binding!!
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,14 +48,13 @@ class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
 
     companion object{
         @JvmStatic
-        fun newInstance() = topicsFragment()
+        fun newInstance() = TopicsFragment()
     }
 
-    override fun onItemClick() {
-        val intent = Intent(this@topicsFragment.requireContext(),TrainActivity::class.java)
+    override fun onItemClick(name : String) {
+        val intent = Intent(this@TopicsFragment.requireContext(),TrainActivity::class.java).apply {
+            putExtra("topic", name)
+        }
         startActivity(intent)
-       // fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
-
-       // Toast.makeText(context, "Item clicked", Toast.LENGTH_SHORT).show()
     }
 }
