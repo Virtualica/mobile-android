@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.JsonReader
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
@@ -22,17 +23,15 @@ import kotlinx.android.synthetic.main.login_container.*
 class LoginView : AppCompatActivity() {
 
     private lateinit var vr : Virtualica
+    private lateinit var  internalMemory : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_container)
 
-
-        val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
-        val json = internalMemory.getString("users", "NO_USER")
-
-
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
+        internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
+        val json = internalMemory.getString("users", "NO_USER")
 
 
         if(json != "NO_USER"){
@@ -99,7 +98,6 @@ class LoginView : AppCompatActivity() {
         if(res.resultCode == Activity.RESULT_OK){
             val taskUser = GoogleSignIn.getSignedInAccountFromIntent(res.data)
             val accountGoogle = taskUser.result
-
             if(accountGoogle != null){
                 val credentialUser = GoogleAuthProvider.getCredential(accountGoogle.idToken, null)
                 Firebase.auth.signInWithCredential(credentialUser).addOnSuccessListener {
@@ -107,10 +105,11 @@ class LoginView : AppCompatActivity() {
                         Firebase.auth.currentUser?.uid.toString(),
                         accountGoogle.givenName!!,
                         accountGoogle.email!!,
-                        "ICESI",
+                        "",
                         "", "", "False"
                     )
                     Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+                        keepSessionStarted(user, internalMemory)
                         goMainActivity()
                     }
                 }

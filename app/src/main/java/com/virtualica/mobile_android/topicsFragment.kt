@@ -45,22 +45,6 @@ class topicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         return binding.root
     }
 
-    /*
-            val categories : MutableList<Category> = ArrayList()
-        val dataCategory = arguments
-        for (i in 0 until dataCategory!!.size()){
-            val c : Category = dataCategory.get("category$i") as Category
-            categories.add(c)
-        }
-        _binding = CategoryListBinding.inflate(inflater, container, false)
-        val adapter = MycategoryRecyclerViewAdapter(this, categories)
-        val recycler = binding.listInCategory
-        recycler.setHasFixedSize(true)
-        recycler.layoutManager = LinearLayoutManager(activity)
-        recycler.adapter = adapter
-
-        return binding.root
-     */
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.practice.*
+import kotlinx.android.synthetic.main.question.*
+import kotlinx.android.synthetic.main.question.view.*
 
 class TrainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,15 +21,11 @@ class TrainActivity: AppCompatActivity() {
 
                 }
                 .setPositiveButton("¡Si!"){ _ , _ ->
-                    //Log.e("test","funciona")
                     val intent = Intent(this,FragmentActivity::class.java)
                     startActivity(intent)
 
-
                 }
                 .show()
-
-
         }
 
     }
