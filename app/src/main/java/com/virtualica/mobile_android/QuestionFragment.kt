@@ -46,15 +46,10 @@ class QuestionFragment : Fragment() {
     private fun changeData(inf : View){
         inf.countQuestion.text = "Pregunta " + (pos+1).toString()
         inf.questionContent.text = questions[pos].enunciado
-    }
-
-    private fun changeOptions(inf : View, id : String){
-        val db = Firebase.firestore
-        db.collection("preguntas").document(id).collection("opciones").get().addOnSuccessListener { res->
-            for (o in res){
-                o.data.values.toString()
-            }
-        }
+        inf.opA.text = questions[pos].A
+        inf.opB.text = questions[pos].B
+        inf.opC.text = questions[pos].C
+        inf.opD.text = questions[pos].D
     }
 
 
