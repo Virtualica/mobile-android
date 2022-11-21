@@ -1,5 +1,6 @@
 package com.virtualica.mobile_android
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,6 +27,8 @@ class QuestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var res : String? = null
+
         val inf = inflater.inflate(R.layout.question, container, false)
         val dataQuestion = arguments
         for (i in 0 until dataQuestion!!.size()){
@@ -39,7 +42,46 @@ class QuestionFragment : Fragment() {
             changeData(inf)
         }
 
+        inf.opA.setOnClickListener {
+            resetButtons(inf)
+            inf.opA.setBackgroundColor(Color.parseColor("#92106d"))
+            inf.opA.setTextColor(Color.parseColor("#FFFFFFFF"))
+            res = "A"
+        }
+        inf.opB.setOnClickListener {
+            resetButtons(inf)
+            inf.opB.setBackgroundColor(Color.parseColor("#92106d"))
+            inf.opB.setTextColor(Color.parseColor("#FFFFFFFF"))
+            res = "B"
+        }
+        inf.opC.setOnClickListener {
+            resetButtons(inf)
+            inf.opC.setBackgroundColor(Color.parseColor("#92106d"))
+            inf.opC.setTextColor(Color.parseColor("#FFFFFFFF"))
+            res = "C"
+        }
+        inf.opD.setOnClickListener {
+            resetButtons(inf)
+            inf.opD.setBackgroundColor(Color.parseColor("#92106d"))
+            inf.opD.setTextColor(Color.parseColor("#FFFFFFFF"))
+            res = "D"
+        }
+
+
         return inf
+    }
+
+    private fun resetButtons(inf:View){
+        inf.opA.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+        inf.opB.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+        inf.opC.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+        inf.opD.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+        inf.opA.setTextColor(Color.parseColor("#92106d"))
+        inf.opB.setTextColor(Color.parseColor("#92106d"))
+        inf.opC.setTextColor(Color.parseColor("#92106d"))
+        inf.opD.setTextColor(Color.parseColor("#92106d"))
+
+
     }
 
 
