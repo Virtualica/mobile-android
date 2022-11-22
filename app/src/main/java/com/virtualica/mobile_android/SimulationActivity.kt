@@ -23,8 +23,7 @@ class SimulationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulation)
         time()
-        Log.e("Error", getIndex(19).size.toString() + "Sapa hpta")
-        //showFragment()
+        showFragment()
     }
 
     private fun showFragment() {
@@ -41,20 +40,27 @@ class SimulationActivity : AppCompatActivity() {
                 }
                 questions.add(newQ)
             }
+            val data = putDataQuestion(questions)
+            for (q in data){
+                bundle.putSerializable("question${count}", q)
+                count++
+            }
+            fragment.arguments = bundle
+            val transaction = supportFragmentManager.beginTransaction()
+                .replace(R.id.questionContainer, fragment)
+            transaction.commit()
         }
-
-
-
-
     }
 
     private fun putDataQuestion(questions : MutableList<Question>) : MutableList<Question>{
-        val questionsToPut : MutableList<Question> = ArrayList()
+        var questionsToPut : MutableList<Question> = ArrayList()
         val categories = arrayOf("Matemáticas", "Inglés", "Ciencias Sociales", "Lectura Crítica", "Ciencias Naturales")
-
-
-
-
+        for (c in categories){
+            val newQuestions = putDataQuestionCategory(c, questions)
+            for (nq in newQuestions){
+                questionsToPut.add(nq)
+            }
+        }
         return questionsToPut
     }
 
@@ -66,8 +72,10 @@ class SimulationActivity : AppCompatActivity() {
                 questionsPerCategory.add(q)
             }
         }
-
-
+        val setInt = getIndex(questionsPerCategory.size)
+        for (i in setInt){
+            questionsPerCategoryToPut.add(questionsPerCategory[i])
+        }
         return questionsPerCategoryToPut
     }
 
@@ -76,7 +84,7 @@ class SimulationActivity : AppCompatActivity() {
         val random = Random
         if(size <= 20){
             while (indexToQuestion.size != size){
-                indexToQuestion.add(random.nextInt(0..size))
+                indexToQuestion.add(random.nextInt(0 until size))
             }
         } else {
             while (indexToQuestion.size != 20){
