@@ -18,9 +18,6 @@ class QuestionFragment() : Fragment() {
 
     private val questions : MutableList<Question> = ArrayList()
     private var pos = 0
-    private var out = false
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,45 +25,27 @@ class QuestionFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var res : String? = null
-
         val inf = inflater.inflate(R.layout.question, container, false)
         val dataQuestion = arguments
         for (i in 0 until dataQuestion!!.size()){
             val q : Question = dataQuestion.get("question${i}") as Question
             questions.add(q)
         }
+
         changeData(inf)
-
         inf.next.setOnClickListener {
-
-            if(!out){
-                if(res != null) {
-                    if(res != questions[pos].correcta){
-                        super.getContext()?.let { it1 ->
-                            Dialog("Respuesta Incorrecta", "Has fallado, ${questions[pos].retroalimentacion}",
-                                it1
-                            )
-                        }
-                    } else {
-                        super.getContext()?.let { it1 ->
-                            Dialog("Respuesta correcta", "Felicidades, has acertado",
-                                it1
-                            )
-                        }
-                    }
-                    pos++
-                    changeData(inf)
+            if(res != null){
+                if(res == questions[pos].correcta){
+                    dialogue("Respuesta correcta", "Felcidades, has acertado", true, inf)
                 } else {
-                    super.getContext()?.let { it1 ->
-                        Dialog("Sin respuesta", "Por favor, responde la pregunta para continuar",
-                            it1
-                        )
-                    }
+                    dialogue("Respuesta incorrecta", "Lo sentimos, has fallado ${questions[pos].retroalimentacion}", true, inf)
                 }
-                resetButtons(inf)
+                pos++
+                res = null
+            } else {
+                dialogue("Selecciona una respuesta", "Por favor, selecciona una respuesta", false, inf)
             }
-
-
+            resetButtons(inf)
         }
 
         inf.opA.setOnClickListener {
@@ -93,8 +72,6 @@ class QuestionFragment() : Fragment() {
             inf.opD.setTextColor(Color.parseColor("#FFFFFFFF"))
             res = "D"
         }
-
-
         return inf
     }
 
@@ -107,44 +84,49 @@ class QuestionFragment() : Fragment() {
         inf.opB.setTextColor(Color.parseColor("#92106d"))
         inf.opC.setTextColor(Color.parseColor("#92106d"))
         inf.opD.setTextColor(Color.parseColor("#92106d"))
-
-
     }
 
 
     private fun changeData(inf : View){
-
-            if(pos < questions.size){
-                inf.countQuestion.text = "Pregunta " + (pos+1).toString()
-                inf.questionContent.text = questions[pos].enunciado
-                inf.opA.text = "A. ${questions[pos].A}"
-                inf.opB.text = "B. ${questions[pos].B}"
-                inf.opC.text = "C. ${questions[pos].C}"
-                inf.opD.text = "D. ${questions[pos].D}"
-            } else {
-                out = true
-                super.getContext()?.let { it1 ->
-                    Dialog("Has terminado", "Felcidades, has terminado todas las preguntas",
-                        it1
-                    )
-                }
-                val intent = Intent (super.getContext(), FragmentActivity::class.java)
-                startActivity(intent)
-            }
-
-
-
-
-
+        inf.countQuestion.text = "Pregunta " + (pos+1).toString()
+        inf.questionContent.text = questions[pos].enunciado
+        inf.opA.text = "A. ${questions[pos].A}"
+        inf.opB.text = "B. ${questions[pos].B}"
+        inf.opC.text = "C. ${questions[pos].C}"
+        inf.opD.text = "D. ${questions[pos].D}"
     }
 
 
-    private fun Dialog(msg : String, des : String, ct : Context){
-        MaterialAlertDialogBuilder(ct)
-            .setTitle(msg)
-            .setMessage(des)
-            .setPositiveButton("OK") { dialog, which ->
-            }
-            .show()
+    private fun dialogue(msg : String, des : String, out : Boolean, inf: View) {
+        super.getContext()?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(msg)
+                .setMessage(des)
+                .setPositiveButton("OK") { dialog, which ->
+                    if(out){
+                        if(pos < questions.size){
+                            changeData(inf)
+
+                        } else {
+                            dialogue("Has terminado", "Felicidades, has completado la prueba", inf)
+                        }
+
+                    }
+                }
+                .show()
+        }
+    }
+
+    private fun dialogue(msg : String, des : String, inf: View) {
+        super.getContext()?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(msg)
+                .setMessage(des)
+                .setPositiveButton("OK") { dialog, which ->
+                    val intent = Intent (super.getContext(), FragmentActivity::class.java)
+                    startActivity(intent)
+                }
+                .show()
+        }
     }
 }
