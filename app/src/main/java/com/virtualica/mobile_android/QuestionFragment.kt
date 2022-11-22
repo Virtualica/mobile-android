@@ -18,13 +18,14 @@ class QuestionFragment() : Fragment() {
 
     private val questions : MutableList<Question> = ArrayList()
     private var pos = 0
+    var res : String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var res : String? = null
         val inf = inflater.inflate(R.layout.question, container, false)
         val dataQuestion = arguments
         for (i in 0 until dataQuestion!!.size()){
@@ -41,7 +42,6 @@ class QuestionFragment() : Fragment() {
                     dialogue("Respuesta incorrecta", "Lo sentimos, has fallado ${questions[pos].retroalimentacion}", true, inf)
                 }
                 pos++
-                res = null
             } else {
                 dialogue("Selecciona una respuesta", "Por favor, selecciona una respuesta", false, inf)
             }
@@ -106,6 +106,7 @@ class QuestionFragment() : Fragment() {
                     if(out){
                         if(pos < questions.size){
                             changeData(inf)
+                            res=null
 
                         } else {
                             dialogue("Has terminado", "Felicidades, has completado la prueba", inf)

@@ -12,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.dataClasses.Category
+import com.virtualica.mobile_android.models.dataClasses.Question
 
 class FragmentActivity : AppCompatActivity() {
 
@@ -38,7 +39,7 @@ class FragmentActivity : AppCompatActivity() {
                     showFragment()
                 }
                 R.id.simulation -> {
-                    showDialogToSimulate(SimulationFragment.newInstance())
+                    showDialogToSimulate()
                 }
             }
             true
@@ -80,7 +81,7 @@ class FragmentActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialogToSimulate(fragment: Fragment){
+    private fun showDialogToSimulate(){
         MaterialAlertDialogBuilder(this)
             .setTitle("Estas a punto iniciar el simulacro, ¿Deseas continuar?")
             .setNegativeButton("No, necesito practicar más"){ _, _ ->
@@ -88,19 +89,9 @@ class FragmentActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             .setPositiveButton("¡Si!"){ _ , _ ->
-                showFragmentSimulacro(fragment)
-                navigator.visibility = View.GONE
-                appBar.visibility = View.GONE
-
+                val intent = Intent(this, SimulationActivity::class.java)
+                startActivity(intent)
             }
             .show()
-
     }
-
-    private fun showFragmentSimulacro(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
-    }
-
 }
