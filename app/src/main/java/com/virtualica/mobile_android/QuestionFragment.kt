@@ -1,25 +1,25 @@
 package com.virtualica.mobile_android
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.dataClasses.Category
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.virtualica.mobile_android.models.dataClasses.Question
-import kotlinx.android.synthetic.main.question.*
 import kotlinx.android.synthetic.main.question.view.*
 
 
-class QuestionFragment : Fragment() {
+class QuestionFragment() : Fragment() {
 
 
     private val questions : MutableList<Question> = ArrayList()
-    private var pos = 0;
+    private var pos = 0
+    private var out = false
+
 
 
     override fun onCreateView(
@@ -38,8 +38,35 @@ class QuestionFragment : Fragment() {
         changeData(inf)
 
         inf.next.setOnClickListener {
-            pos++
-            changeData(inf)
+
+            if(!out){
+                if(res != null) {
+                    if(res != questions[pos].correcta){
+                        super.getContext()?.let { it1 ->
+                            Dialog("Respuesta Incorrecta", "Has fallado, ${questions[pos].retroalimentacion}",
+                                it1
+                            )
+                        }
+                    } else {
+                        super.getContext()?.let { it1 ->
+                            Dialog("Respuesta correcta", "Felicidades, has acertado",
+                                it1
+                            )
+                        }
+                    }
+                    pos++
+                    changeData(inf)
+                } else {
+                    super.getContext()?.let { it1 ->
+                        Dialog("Sin respuesta", "Por favor, responde la pregunta para continuar",
+                            it1
+                        )
+                    }
+                }
+                resetButtons(inf)
+            }
+
+
         }
 
         inf.opA.setOnClickListener {
@@ -86,18 +113,38 @@ class QuestionFragment : Fragment() {
 
 
     private fun changeData(inf : View){
-        inf.countQuestion.text = "Pregunta " + (pos+1).toString()
-        inf.questionContent.text = questions[pos].enunciado
-        inf.opA.text = questions[pos].A
-        inf.opB.text = questions[pos].B
-        inf.opC.text = questions[pos].C
-        inf.opD.text = questions[pos].D
+
+            if(pos < questions.size){
+                inf.countQuestion.text = "Pregunta " + (pos+1).toString()
+                inf.questionContent.text = questions[pos].enunciado
+                inf.opA.text = "A. ${questions[pos].A}"
+                inf.opB.text = "B. ${questions[pos].B}"
+                inf.opC.text = "C. ${questions[pos].C}"
+                inf.opD.text = "D. ${questions[pos].D}"
+            } else {
+                out = true
+                super.getContext()?.let { it1 ->
+                    Dialog("Has terminado", "Felcidades, has terminado todas las preguntas",
+                        it1
+                    )
+                }
+                val intent = Intent (super.getContext(), FragmentActivity::class.java)
+                startActivity(intent)
+            }
+
+
+
+
+
     }
 
 
-
-    companion object{
-        @JvmStatic
-        fun newInstance() = QuestionFragment()
+    private fun Dialog(msg : String, des : String, ct : Context){
+        MaterialAlertDialogBuilder(ct)
+            .setTitle(msg)
+            .setMessage(des)
+            .setPositiveButton("OK") { dialog, which ->
+            }
+            .show()
     }
 }
