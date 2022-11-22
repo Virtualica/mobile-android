@@ -6,19 +6,89 @@ import android.media.RingtoneManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.virtualica.mobile_android.models.dataClasses.Question
 import kotlinx.android.synthetic.main.activity_simulation.*
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class SimulationActivity : AppCompatActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulation)
         time()
+        Log.e("Error", getIndex(19).size.toString() + "Sapa hpta")
+        //showFragment()
+    }
+
+    private fun showFragment() {
+        val db = Firebase.firestore
+        val fragment = QuestionFragment()
+        val bundle = Bundle()
+        var count = 0
+        val questions : MutableList<Question> = ArrayList()
+
+        db.collection("preguntas").get().addOnSuccessListener {  res ->
+            for(q in res){
+                val newQ = q.toObject(Question::class.java).also {
+                    it.id = q.id
+                }
+                questions.add(newQ)
+            }
+        }
+
+
+
+
+    }
+
+    private fun putDataQuestion(questions : MutableList<Question>) : MutableList<Question>{
+        val questionsToPut : MutableList<Question> = ArrayList()
+        val categories = arrayOf("Matemáticas", "Inglés", "Ciencias Sociales", "Lectura Crítica", "Ciencias Naturales")
+
+
+
+
+        return questionsToPut
+    }
+
+    private fun putDataQuestionCategory(category : String, questions : MutableList<Question>) : MutableList<Question>{
+        val questionsPerCategory : MutableList<Question> = ArrayList()
+        val questionsPerCategoryToPut : MutableList<Question> = ArrayList()
+        for (q in questions){
+            if(q.categoria == category){
+                questionsPerCategory.add(q)
+            }
+        }
+
+
+        return questionsPerCategoryToPut
+    }
+
+    private fun getIndex(size : Int) : MutableSet<Int>{
+        val indexToQuestion : MutableSet<Int> = mutableSetOf()
+        val random = Random
+        if(size <= 20){
+            while (indexToQuestion.size != size){
+                indexToQuestion.add(random.nextInt(0..size))
+            }
+        } else {
+            while (indexToQuestion.size != 20){
+                indexToQuestion.add(random.nextInt(0..size))
+            }
+        }
+        return indexToQuestion
     }
 
 
     private fun time(){
-        val timeInitial = (12).toLong()
+        val timeInitial = (1200000).toLong()
         object : CountDownTimer(timeInitial, 1000){
 
             override fun onFinish() {
@@ -46,6 +116,5 @@ class SimulationActivity : AppCompatActivity() {
                 finish()
             }
             .show()
-
     }
 }

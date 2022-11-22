@@ -43,7 +43,6 @@ class TrainActivity : AppCompatActivity() {
         val topic = intent.extras?.getString("topic")
         val fragment = QuestionFragment()
         val bundle = Bundle()
-        val qTemp: MutableList<Question> = ArrayList()
 
         var count = 0
 
