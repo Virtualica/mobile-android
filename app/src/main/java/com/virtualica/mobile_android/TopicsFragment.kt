@@ -2,6 +2,7 @@ package com.virtualica.mobile_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -27,12 +28,13 @@ class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
 
         val themes : MutableList<Themes> = ArrayList()
         val dataThemes = arguments
-        for (i in 0 until dataThemes!!.size()){
+        for (i in 0 until dataThemes!!.size()-1){
             val t : Themes = dataThemes.get("theme$i") as Themes
             themes.add(t)
         }
+        val color = dataThemes.get("color").toString()
+        val adapter = MytopicsRecyclerViewAdapter(this, themes, color)
         _binding = TopicListBinding.inflate(inflater, container, false)
-        val adapter = MytopicsRecyclerViewAdapter(this, themes)
         val recycler = binding.listInCategory
         recycler.setHasFixedSize(true)
         recycler.layoutManager = GridLayoutManager(activity, columnCount)

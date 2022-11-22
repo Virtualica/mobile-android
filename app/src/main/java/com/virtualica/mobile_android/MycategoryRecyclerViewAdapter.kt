@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickLi
                         bundle.putSerializable("theme$count", newT)
                         count++
                     }
+                    bundle.putString("color", colors[position])
                     fragment.arguments = bundle
                     itemClickListener.onItemClick(fragment)
                 }
