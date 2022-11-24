@@ -2,6 +2,8 @@ package com.virtualica.mobile_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -20,30 +22,34 @@ class  MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         virtualica = Virtualica()
-
         getInstitutions()
     }
 
     private fun getInstitutions(){
+        var count = 0
         db.collection("institutions").get().addOnSuccessListener{ res ->
             for (document in res){
                 document.toObject(Institution::class.java).also {
                     it.id = document.id
                     db.collection("institutions").document(document.id).collection("estudiantes").get().addOnSuccessListener { estRes ->
                         for (i in estRes){
-                            val emailString = i.data.values.toString()
+                            val emailString = i.id
                             it.estudiantes.add(emailString)
                         }
                         virtualica.addInstitutionToList(it)
-                        goMainActivity()
+                        if(count == res.size()-1){
+                            goMainActivity()
+                            finish()
+                        }
+                        count++
                     }
                 }
             }
         }
+
     }
 
     private fun goMainActivity(){
-
         val intent = Intent(this, LoginView::class.java).apply {
             putExtra("virtualica", virtualica)
         }

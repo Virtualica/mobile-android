@@ -83,4 +83,10 @@
         <item name="strokeColor">@color/backgroundButton</item>
         <item name="android:height">60dp</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.Mobileandroid">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
+
+
 </resources>
