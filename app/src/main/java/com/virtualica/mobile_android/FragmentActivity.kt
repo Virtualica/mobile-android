@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Category
 import com.virtualica.mobile_android.models.dataClasses.Question
 
@@ -20,9 +21,8 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var profile:ImageView
     private lateinit var logo:ImageView
     private  lateinit var appBar:AppBarLayout
+    private lateinit var vr : Virtualica;
     private val db = Firebase.firestore
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +31,7 @@ class FragmentActivity : AppCompatActivity() {
         showFragment()
         appBar = findViewById(R.id.appbar)
 
+        vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
         navigator = findViewById(R.id.navigator)
         navigator.setOnItemSelectedListener { menuItem ->
@@ -50,7 +51,7 @@ class FragmentActivity : AppCompatActivity() {
 
         profile = findViewById(R.id.profile)
         profile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
+            val intent = Intent(this, ProfileActivity::class.java).apply { putExtra("virtualica", vr) }
             startActivity(intent)
         }
 

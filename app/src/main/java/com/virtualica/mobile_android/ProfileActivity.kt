@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import com.virtualica.mobile_android.models.Virtualica
+import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.profile.*
 import kotlin.math.log
 
@@ -28,7 +31,9 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private var imageUri: Uri? = null
     private val db = Firebase.firestore
     private val storage = Firebase.storage
-
+    private lateinit var user : User
+    private lateinit var vr : Virtualica
+    private lateinit var nombrePerfil: TextView
     private lateinit var profile: ImageView
     private lateinit var logo: ImageView
 
@@ -36,6 +41,11 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
+
+        vr = intent.extras?.getSerializable("virtualica") as Virtualica
+
+        val fbUserCurr = Firebase.auth.currentUser
+        user = vr.getUser().find { it.email ==  fbUserCurr!!.email}!!
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
@@ -46,6 +56,16 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         profile = findViewById(R.id.profile)
         profile.setOnClickListener {
             checkExternalStoragePermission()
+        }
+        nombrePerfil = findViewById(R.id.nombrePerfil)
+        setFields()
+
+    }
+
+    private fun setFields() {
+        nombrePerfil.text = user.name
+        storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
+            Picasso.get().load(Uri.parse(it.toString())).into(profile)
         }
     }
 
@@ -95,7 +115,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private fun uploadImage(completion: (String?) -> Unit) {
         if (this.imageUri != null) {
             val storageRef = storage.reference
-            val reportRef = storageRef.child("profile_photo/test.jpg")
+            val reportRef = storageRef.child("profile_photo/" + user.id)
             val uploadTask = reportRef.putFile(imageUri!!)
             uploadTask.addOnFailureListener {
                 completion(null)

@@ -118,7 +118,7 @@ class LoginView : AppCompatActivity() {
     }
 
     private fun goMainActivity(){
-        startActivity(Intent(this, FragmentActivity::class.java))
+        startActivity(Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) })
     }
 
     private fun keepSessionStarted(user : User, iMemory: SharedPreferences){
