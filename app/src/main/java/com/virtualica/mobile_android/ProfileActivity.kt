@@ -19,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.User
@@ -31,9 +32,12 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private var imageUri: Uri? = null
     private val db = Firebase.firestore
     private val storage = Firebase.storage
-    private lateinit var user : User
     private lateinit var vr : Virtualica
+    private lateinit var user : User
     private lateinit var nombrePerfil: TextView
+    private lateinit var usuarioEdad: TextView
+    private lateinit var usuarioInstitucion: TextView
+    private lateinit var usuarioCorreo: TextView
     private lateinit var profile: ImageView
     private lateinit var logo: ImageView
 
@@ -44,12 +48,13 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
 
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
-        val fbUserCurr = Firebase.auth.currentUser
-        user = vr.getUser().find { it.email ==  fbUserCurr!!.email}!!
+        val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
+        val json = internalMemory.getString("users", "NO_USER")
+        user = Gson().fromJson(json, User::class.java)
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
-            val intent = Intent(this, FragmentActivity::class.java)
+            val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
             startActivity(intent)
         }
 
@@ -58,14 +63,22 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
             checkExternalStoragePermission()
         }
         nombrePerfil = findViewById(R.id.nombrePerfil)
+        usuarioEdad = findViewById(R.id.usuarioEdad)
+        usuarioInstitucion = findViewById(R.id.usuarioInstitucion)
+        usuarioCorreo = findViewById(R.id.usuarioCorreo)
         setFields()
 
     }
 
     private fun setFields() {
         nombrePerfil.text = user.name
+        usuarioEdad.text = "Edad: " + user.age
+        usuarioInstitucion.text = "Institución: " + user.institution
+        usuarioCorreo.text = "Correo: " + user.email
         storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
             Picasso.get().load(Uri.parse(it.toString())).into(profile)
+        }.addOnFailureListener {
+            Log.e("Error", "No funca")
         }
     }
 

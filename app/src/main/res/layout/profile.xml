@@ -101,22 +101,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/miPerfil" />
 
-                <TextView
-                    android:id="@+id/usuario"
-                    style="@style/CheckBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
-                    android:drawablePadding="5dp"
-                    android:drawableTint="@color/blue"
-                    android:text="JuaCaRR24"
-                    android:textColor="@color/blue"
-                    app:drawableStartCompat="@drawable/ic_baseline_person_pin_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nombrePerfil" />
 
                 <TextView
                     android:id="@+id/usuarioEdad"
@@ -133,7 +117,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/usuario" />
+                    app:layout_constraintTop_toBottomOf="@+id/nombrePerfil" />
 
                 <TextView
                     android:id="@+id/usuarioInstitucion"

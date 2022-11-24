@@ -108,7 +108,6 @@ class LoginView : AppCompatActivity() {
                         "Sin institución",
                         "N/A", "N/A", "False"
                     )
-                    vr.addUserToList(user)
                     Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
                         keepSessionStarted(user, internalMemory)
                         goMainActivity()
