@@ -68,6 +68,8 @@ class FragmentActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        /*
         storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
             Picasso.get().load(Uri.parse(it.toString())).into(profile)
         }.addOnFailureListener {
@@ -79,6 +81,8 @@ class FragmentActivity : AppCompatActivity() {
             val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
             startActivity(intent)
         }
+
+         */
 
 
 

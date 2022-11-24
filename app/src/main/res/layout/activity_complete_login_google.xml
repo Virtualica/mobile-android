@@ -9,7 +9,8 @@
     android:background="@color/white"
     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
     android:fillViewport="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".CompleteLoginGoogle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -52,31 +53,25 @@
             android:id="@+id/textView"
             style="@style/TextViewHeader"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="Únete a la comunidad"
+            android:layout_marginTop="35dp"
+            android:text="Falta poco para ser parte de Virtualica"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.112"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/filledTextField"
-            style="@style/InputsTextField"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:layout_marginStart="45dp"
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/TextViewHeader"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="45dp"
-            android:hint="Nombre"
-            app:startIconDrawable="@drawable/ic_baseline_edit_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name_input"
-                style="@style/TextInputEditText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="Completa estos campos"
+            android:textColor="@color/sessionActive"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.112"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField1"
@@ -84,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filledTextField"
+            app:layout_constraintTop_toBottomOf="@+id/textView1"
             android:layout_marginStart="45dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="45dp"
@@ -97,45 +92,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/filledTextField2"
-            style="@style/InputsTextField"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filledTextField1"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="45dp"
-            android:hint="Correo Electronico"
-            app:startIconDrawable="@drawable/ic_baseline_mail_outline_24">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_input"
-                style="@style/TextInputEditText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/filledTextField3"
-            style="@style/InputsTextField"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filledTextField2"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="45dp"
-            android:hint="Contraseña"
-            app:startIconDrawable="@drawable/ic_outline_lock_24"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_input"
-                style="@style/TextInputEditText"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField4"
@@ -148,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filledTextField3"
+            app:layout_constraintTop_toBottomOf="@+id/filledTextField1"
             app:startIconDrawable="@drawable/ic_baseline_school_24">
 
             <AutoCompleteTextView
@@ -160,7 +117,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField5"
             style="@style/InputsTextField"
-            app:layout_constraintEnd_toStartOf="@+id/btnAge"
+            app:layout_constraintEnd_toStartOf="@+id/btnAgeGoogle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filledTextField4"
             android:layout_width="0dp"
@@ -178,7 +135,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnAge"
+            android:id="@+id/btnAgeGoogle"
             style="@style/ButtonOutline"
             android:text="Edad"
             android:textColor="@color/hintInput"
@@ -188,8 +145,7 @@
             android:layout_width="0dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="45dp"
-            app:icon="@drawable/ic_baseline_calendar_month_24"
-            />
+            app:icon="@drawable/ic_baseline_calendar_month_24"/>
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -202,23 +158,15 @@
             android:textStyle="bold"
             app:buttonTint="@color/redLogin" />
 
+
         <Button
             android:id="@+id/btnLoginComplete"
             style="@style/Button"
-            app:layout_constraintEnd_toEndOf="@+id/btnAge"
-            app:layout_constraintStart_toStartOf="@+id/filledTextField5"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox"
-            android:layout_marginTop="5dp"
-            android:text="Registrarse" />
+            android:layout_marginTop="15dp"
+            android:text="Continuar"
+            app:layout_constraintEnd_toEndOf="@+id/btnAgeGoogle"
+            app:layout_constraintStart_toStartOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
-        <Button
-            android:id="@+id/btnGoLogin"
-            style="@style/ButtonText"
-            app:layout_constraintEnd_toEndOf="@+id/btnLoginComplete"
-            app:layout_constraintStart_toStartOf="@+id/btnLoginComplete"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginComplete"
-            android:layout_marginTop="5dp"
-            android:text="Ya tengo una cuenta. Iniciar sesión"/>
-        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

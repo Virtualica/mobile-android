@@ -101,6 +101,31 @@ class LoginView : AppCompatActivity() {
             if(accountGoogle != null){
                 val credentialUser = GoogleAuthProvider.getCredential(accountGoogle.idToken, null)
                 Firebase.auth.signInWithCredential(credentialUser).addOnSuccessListener {
+                    Firebase.firestore.collection("users").document(Firebase.auth.currentUser?.uid.toString()).get().addOnSuccessListener { res ->
+                        if(res.data == null){
+                            Log.e("Error", "Sapa")
+                            val intent = Intent(this, CompleteLoginGoogle::class.java)
+                            intent.putExtra("virtualica", vr)
+                            intent.putExtra("uid", Firebase.auth.currentUser?.uid.toString())
+                            intent.putExtra("givenName", accountGoogle.givenName!!)
+                            intent.putExtra("email", accountGoogle.email!!)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val user = res.toObject(User::class.java) as User
+                            keepSessionStarted(user, internalMemory)
+                            goMainActivity()
+                        }
+
+                    }
+
+
+
+
+
+
+                    /*
+
                     val user = User(
                         Firebase.auth.currentUser?.uid.toString(),
                         accountGoogle.givenName!!,
@@ -108,10 +133,12 @@ class LoginView : AppCompatActivity() {
                         "Sin institución",
                         "N/A", "N/A", "false"
                     )
+                    Log.e("Error", user.email + " Lo volvio a crear, solo setea")
                     Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
-                        keepSessionStarted(user, internalMemory)
-                        goMainActivity()
+
                     }
+
+                     */
                 }
             }
         }

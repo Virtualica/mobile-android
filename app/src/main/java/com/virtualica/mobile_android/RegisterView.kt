@@ -37,7 +37,7 @@ class RegisterView : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnRegister.setOnClickListener{
+        btnLoginComplete.setOnClickListener{
             registerUser()
         }
     }
@@ -54,8 +54,6 @@ class RegisterView : AppCompatActivity() {
             DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
             myCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
-
-
     }
 
     private fun updateLabelAge(myCalendar : Calendar){
