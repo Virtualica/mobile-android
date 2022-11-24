@@ -106,7 +106,7 @@ class LoginView : AppCompatActivity() {
                         accountGoogle.givenName!!,
                         accountGoogle.email!!,
                         "",
-                        "", "", "False"
+                        "", "", "false"
                     )
                     Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
                         keepSessionStarted(user, internalMemory)

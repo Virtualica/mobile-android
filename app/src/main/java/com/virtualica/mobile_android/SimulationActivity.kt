@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.dataClasses.Question
@@ -24,6 +25,7 @@ class SimulationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_simulation)
         time()
         showFragment()
+
     }
 
     private fun showFragment() {
