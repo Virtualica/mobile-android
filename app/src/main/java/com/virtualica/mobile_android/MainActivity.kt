@@ -23,29 +23,33 @@ class  MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         virtualica = Virtualica()
         getInstitutions()
+
     }
 
     private fun getInstitutions(){
-        var count = 0
-        db.collection("institutions").get().addOnSuccessListener{ res ->
-            for (document in res){
-                document.toObject(Institution::class.java).also {
-                    it.id = document.id
-                    db.collection("institutions").document(document.id).collection("estudiantes").get().addOnSuccessListener { estRes ->
-                        for (i in estRes){
-                            val emailString = i.id
-                            it.estudiantes.add(emailString)
+            var count = 0
+            db.collection("institutions").get().addOnSuccessListener { res ->
+                for (document in res) {
+                    document.toObject(Institution::class.java).also {
+                        it.id = document.id
+                        db.collection("institutions").document(document.id)
+                            .collection("estudiantes").get().addOnSuccessListener { estRes ->
+                            for (i in estRes) {
+                                val emailString = i.id
+                                it.estudiantes.add(emailString)
+                            }
+                            virtualica.addInstitutionToList(it)
+                            if (count == res.size() - 1) {
+                                goMainActivity()
+                                finish()
+                            }
+                            count++
                         }
-                        virtualica.addInstitutionToList(it)
-                        if(count == res.size()-1){
-                            goMainActivity()
-                            finish()
-                        }
-                        count++
                     }
                 }
             }
-        }
+
+
 
     }
 
