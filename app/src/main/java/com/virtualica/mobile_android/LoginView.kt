@@ -105,9 +105,10 @@ class LoginView : AppCompatActivity() {
                         Firebase.auth.currentUser?.uid.toString(),
                         accountGoogle.givenName!!,
                         accountGoogle.email!!,
-                        "",
-                        "", "", "false"
+                        "Sin institución",
+                        "N/A", "N/A", "false"
                     )
+                    vr.addUserToList(user)
                     Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
                         keepSessionStarted(user, internalMemory)
                         goMainActivity()
