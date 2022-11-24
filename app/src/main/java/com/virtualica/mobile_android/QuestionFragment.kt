@@ -29,7 +29,6 @@ class QuestionFragment() : Fragment() {
     ): View? {
         val inf = inflater.inflate(R.layout.question, container, false)
         val dataQuestion = arguments
-        Log.e("Error", dataQuestion!!.size().toString() + "Gonorrea triple hpta")
         for (i in 0 until dataQuestion!!.size()){
             val q : Question = dataQuestion.get("question${i}") as Question
             questions.add(q)

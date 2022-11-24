@@ -71,12 +71,15 @@ class RegisterView : AppCompatActivity() {
             && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
-                    if (vr.validateStudentInInstitution(email_input.text.toString(), autoCompleteInstitution.text.toString())){
-                        onRegisterWithAuth()
+                    if(email_input.text.toString() == "Sin institución"){
+                        onRegisterWithAuth(false)
                     } else {
-                        Toast.makeText(this,"No perteneces a esta institución",Toast.LENGTH_SHORT).show()
+                        if (vr.validateStudentInInstitution(email_input.text.toString(), autoCompleteInstitution.text.toString())){
+                            onRegisterWithAuth(true)
+                        } else {
+                            Toast.makeText(this,"No perteneces a esta institución",Toast.LENGTH_SHORT).show()
+                        }
                     }
-
                 } else {
                     Toast.makeText(this,"Por favor ingresa una instiuticón valida, en caso de" +
                             "no pertencer a alguna selecciona 'Sin institución'",Toast.LENGTH_SHORT).show()
@@ -90,7 +93,7 @@ class RegisterView : AppCompatActivity() {
     }
 
 
-    private fun onRegisterWithAuth() {
+    private fun onRegisterWithAuth(out : Boolean) {
         Firebase.auth.createUserWithEmailAndPassword(
             email_input.text.toString(),
             password_input.text.toString()
@@ -102,7 +105,7 @@ class RegisterView : AppCompatActivity() {
                 autoCompleteInstitution.text.toString(),
                 phone_input.text.toString(),
                 btnAge.text.toString(),
-                "false"
+                out.toString()
             )
 
             if (vr.validateStudentInInstitution(user.email, user.institution)){

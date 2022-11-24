@@ -45,7 +45,7 @@ class Virtualica() : Serializable {
         } else {
             for (i in institutions){
                 if( i.nombre == institutionName){
-                    if(i.estudiantes.contains("[$email]")){
+                    if(i.estudiantes.contains(email)){
                         return true
                     }
                 }
