@@ -70,8 +70,6 @@ class MycategoryRecyclerViewAdapter(
                     fragment.arguments = bundle
                     itemClickListener.onItemClick(fragment)
                     progressGet.visibility = View.INVISIBLE
-
-
                 }
             }
         }

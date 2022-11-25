@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -34,7 +35,7 @@ class SimulationActivity : AppCompatActivity() {
         val bundle = Bundle()
         var count = 0
         val questions : MutableList<Question> = ArrayList()
-
+        progressBar8.visibility = View.VISIBLE
         db.collection("preguntas").get().addOnSuccessListener {  res ->
             for(q in res){
                 val newQ = q.toObject(Question::class.java).also {
@@ -51,6 +52,8 @@ class SimulationActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
                 .replace(R.id.questionContainer, fragment)
             transaction.commit()
+            progressBar8.visibility = View.INVISIBLE
+
         }
     }
 

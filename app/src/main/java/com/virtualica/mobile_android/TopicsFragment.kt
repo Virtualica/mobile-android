@@ -33,9 +33,9 @@ class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
             themes.add(t)
         }
         val color = dataThemes.get("color").toString()
-        val adapter = MytopicsRecyclerViewAdapter(this, themes, color)
         _binding = TopicListBinding.inflate(inflater, container, false)
         val recycler = binding.listInCategory
+        val adapter = MytopicsRecyclerViewAdapter(this, themes, color)
         recycler.setHasFixedSize(true)
         recycler.layoutManager = GridLayoutManager(activity, columnCount)
         recycler.adapter = adapter

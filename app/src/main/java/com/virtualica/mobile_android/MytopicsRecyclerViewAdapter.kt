@@ -20,7 +20,11 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderI
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MytopicsRecyclerViewAdapter(private val itemClickListener: OnItemClickListener, themes: MutableList<Themes>, color : String):
+class MytopicsRecyclerViewAdapter(
+    private val itemClickListener: OnItemClickListener,
+    themes: MutableList<Themes>,
+    color: String,
+):
     RecyclerView.Adapter<MytopicsRecyclerViewAdapter.TopicViewHolder>() {
 
     private val dataThemes = themes
