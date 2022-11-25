@@ -26,13 +26,15 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderI
 
 class MycategoryRecyclerViewAdapter(
     private val itemClickListener: OnItemClickListener,
-    categories: MutableList<Category>
+    categories: MutableList<Category>,
+    progressBar6: ProgressBar
 ):
     RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
     private val colors = arrayOf("#E63222","#92106D","#524FD8","#3AD89F","#FDCE20")
     private val backColors = arrayOf("#FFEBEA","#E5D8E8","#F5F5FE","#DFFFF4","#F3E5C4")
     private val dataCategories = categories
+    private val progressGet = progressBar6
 
 
     inner class CategoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
@@ -55,6 +57,7 @@ class MycategoryRecyclerViewAdapter(
                 val bundle = Bundle()
                 val select = dataCategories[position].nombre
                 var count = 0
+                progressGet.visibility = View.VISIBLE
                 db.collection("temas").whereEqualTo("categoria", select).get().addOnSuccessListener { res ->
                     for (t in res){
                         val newT = t.toObject(Themes::class.java).also {
@@ -66,6 +69,9 @@ class MycategoryRecyclerViewAdapter(
                     bundle.putString("color", colors[position])
                     fragment.arguments = bundle
                     itemClickListener.onItemClick(fragment)
+                    progressGet.visibility = View.INVISIBLE
+
+
                 }
             }
         }
