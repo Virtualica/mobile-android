@@ -1,6 +1,7 @@
 package com.virtualica.mobile_android
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.virtualica.mobile_android.databinding.CategoryListBinding
 import com.virtualica.mobile_android.models.dataClasses.Category
+import kotlinx.android.synthetic.main.category_list.*
+import kotlinx.android.synthetic.main.category_list.view.*
 
 
 class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickListener {
@@ -17,6 +20,7 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
 
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +32,8 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
             categories.add(c)
         }
         _binding = CategoryListBinding.inflate(inflater, container, false)
-        val adapter = MycategoryRecyclerViewAdapter(this, categories)
         val recycler = binding.listInCategory
+        val adapter = MycategoryRecyclerViewAdapter(this, categories)
         recycler.setHasFixedSize(true)
         recycler.layoutManager = LinearLayoutManager(activity)
         recycler.adapter = adapter
@@ -48,6 +52,7 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
 
 
     override fun onItemClick(fragment: Fragment) {
+        progressBar6
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
     }
 }

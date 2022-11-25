@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -87,6 +88,7 @@ class CompleteLoginGoogle : AppCompatActivity() {
             out.toString()
         )
         Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+            progressBar4.visibility = View.VISIBLE
             vr.addUserToList(user)
             saveUser(user)
             goMainActivity()

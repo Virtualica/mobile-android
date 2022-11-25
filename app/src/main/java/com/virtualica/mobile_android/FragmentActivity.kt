@@ -21,6 +21,7 @@ import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Category
 import com.virtualica.mobile_android.models.dataClasses.Question
 import com.virtualica.mobile_android.models.dataClasses.User
+import kotlinx.android.synthetic.main.bottom_bar.*
 
 class FragmentActivity : AppCompatActivity() {
 
@@ -91,6 +92,8 @@ class FragmentActivity : AppCompatActivity() {
         val fragment = CategoryFragment()
         val bundle = Bundle()
         var count = 0
+        progressBar5.visibility = View.VISIBLE
+
         db.collection("categorias").get().addOnSuccessListener { res ->
             for (c in res){
                 val newC = c.toObject(Category::class.java).also {
@@ -102,6 +105,7 @@ class FragmentActivity : AppCompatActivity() {
             fragment.arguments = bundle
             val transaction = supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
             transaction.commit()
+            progressBar5.visibility = View.INVISIBLE
         }
     }
 

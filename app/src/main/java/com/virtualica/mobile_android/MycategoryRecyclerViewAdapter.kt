@@ -24,7 +24,10 @@ import com.virtualica.mobile_android.placeholder.PlaceholderContent.PlaceholderI
  * TODO: Replace the implementation with code for your data type.
  */
 
-class MycategoryRecyclerViewAdapter(private val itemClickListener: OnItemClickListener, categories : MutableList<Category>):
+class MycategoryRecyclerViewAdapter(
+    private val itemClickListener: OnItemClickListener,
+    categories: MutableList<Category>
+):
     RecyclerView.Adapter<MycategoryRecyclerViewAdapter.CategoryViewHolder>(){
 
     private val colors = arrayOf("#E63222","#92106D","#524FD8","#3AD89F","#FDCE20")

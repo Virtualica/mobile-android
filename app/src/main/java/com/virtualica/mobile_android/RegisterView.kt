@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -23,7 +24,8 @@ class RegisterView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_container);
+        setContentView(R.layout.register_container)
+        progressBar3.visibility = View.INVISIBLE
 
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
@@ -110,6 +112,7 @@ class RegisterView : AppCompatActivity() {
             if (vr.validateStudentInInstitution(user.email, user.institution)){
                 user.isPremiumStudent = true.toString()
                 Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+                    progressBar3.visibility = View.VISIBLE
                     vr.addUserToList(user)
                     sendVerificationViaEmail()
 
