@@ -87,7 +87,7 @@
             app:startIconDrawable="@drawable/ic_outline_account_circle_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/userName_input"
+                android:id="@+id/userName_inputGoogle"
                 style="@style/TextInputEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +109,7 @@
             app:startIconDrawable="@drawable/ic_baseline_school_24">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteInstitution"
+                android:id="@+id/autoCompleteInstitutionGoogle"
                 style="@style/TextInputEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +128,7 @@
             app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phone_input"
+                android:id="@+id/phone_inputGoogle"
                 style="@style/TextInputEditText"
                 android:layout_height="wrap_content"
                 android:inputType="phone" />
@@ -148,7 +148,7 @@
             app:icon="@drawable/ic_baseline_calendar_month_24"/>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxGoogle"
             style="@style/CheckBox"
             app:layout_constraintStart_toStartOf="@+id/filledTextField5"
             app:layout_constraintTop_toBottomOf="@+id/filledTextField5"
@@ -165,8 +165,8 @@
             android:layout_marginTop="15dp"
             android:text="Continuar"
             app:layout_constraintEnd_toEndOf="@+id/btnAgeGoogle"
-            app:layout_constraintStart_toStartOf="@+id/checkBox"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintStart_toStartOf="@+id/checkBoxGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxGoogle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

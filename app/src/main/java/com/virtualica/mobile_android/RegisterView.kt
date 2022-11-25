@@ -18,7 +18,7 @@ import java.util.*
 
 class RegisterView : AppCompatActivity() {
 
-    private lateinit var vr : Virtualica;
+    private lateinit var vr : Virtualica
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class RegisterView : AppCompatActivity() {
             && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
-                    if(email_input.text.toString() == "Sin institución"){
+                    if(autoCompleteInstitution.text.toString() == "Sin institución"){
                         onRegisterWithAuth(false)
                     } else {
                         if (vr.validateStudentInInstitution(email_input.text.toString(), autoCompleteInstitution.text.toString())){
@@ -99,6 +99,7 @@ class RegisterView : AppCompatActivity() {
             val user = User(
                 Firebase.auth.currentUser?.uid.toString(),
                 name_input.text.toString(),
+                userName_input.text.toString(),
                 email_input.text.toString(),
                 autoCompleteInstitution.text.toString(),
                 phone_input.text.toString(),
@@ -111,9 +112,10 @@ class RegisterView : AppCompatActivity() {
                 Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
                     vr.addUserToList(user)
                     sendVerificationViaEmail()
+
                 }
             } else {
-                Toast.makeText(this, "No perteneces a esta institución", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No perteneces a esta institución", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
             showErrorInEmailAndPassword(it.message.toString())

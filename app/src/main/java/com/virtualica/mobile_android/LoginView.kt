@@ -118,27 +118,6 @@ class LoginView : AppCompatActivity() {
                         }
 
                     }
-
-
-
-
-
-
-                    /*
-
-                    val user = User(
-                        Firebase.auth.currentUser?.uid.toString(),
-                        accountGoogle.givenName!!,
-                        accountGoogle.email!!,
-                        "Sin institución",
-                        "N/A", "N/A", "false"
-                    )
-                    Log.e("Error", user.email + " Lo volvio a crear, solo setea")
-                    Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
-
-                    }
-
-                     */
                 }
             }
         }
