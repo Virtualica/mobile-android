@@ -33,13 +33,12 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var user : User
     private val db = Firebase.firestore
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_bar)
         showFragment()
         appBar = findViewById(R.id.appbar)
-
+        vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
@@ -80,7 +79,14 @@ class FragmentActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val correctAnswered = intent.getIntExtra("correct",0)
+        val category = intent.getStringExtra("category")
 
+        if(correctAnswered != 0 && category != null){
+            Log.e("Se trajo este correct:  ",correctAnswered.toString())
+            Log.e("Se trajo esta category:  ",category.toString())
+            vr.caluclateStadistics(user.id,correctAnswered,category.toString())
+        }
 
     }
     private fun showFragment() {

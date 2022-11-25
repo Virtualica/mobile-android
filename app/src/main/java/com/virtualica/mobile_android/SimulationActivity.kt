@@ -25,6 +25,21 @@ class SimulationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_simulation)
         time()
         showFragment()
+        back_simulation.setOnClickListener(){
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Nunca es tarde para seguir estudiando, ¿Deseas salir?")
+                .setNegativeButton("No ¡Sigamos intentando!"){ _, _ ->
+
+                }
+                .setPositiveButton("¡Si!"){ _ , _ ->
+                    Log.e("test","funciona")
+                    val intent = Intent(this,FragmentActivity::class.java)
+                    startActivity(intent)
+
+                }
+                .show()
+
+        }
 
     }
 
@@ -127,4 +142,6 @@ class SimulationActivity : AppCompatActivity() {
             }
             .show()
     }
+
+
 }

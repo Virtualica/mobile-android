@@ -20,6 +20,9 @@ class QuestionFragment() : Fragment() {
     private val questions : MutableList<Question> = ArrayList()
     private var pos = 0
     var res : String? = null
+    private var correct = 0
+    var category:String? = null
+
 
 
     override fun onCreateView(
@@ -38,6 +41,8 @@ class QuestionFragment() : Fragment() {
         inf.next.setOnClickListener {
             if(res != null){
                 if(res == questions[pos].correcta){
+                    correct++
+                    category = questions[pos].categoria
                     dialogue("Respuesta correcta", "Felcidades, has acertado", true, inf)
                 } else {
                     dialogue("Respuesta incorrecta", "Lo sentimos, has fallado ${questions[pos].retroalimentacion}", true, inf)
@@ -126,9 +131,12 @@ class QuestionFragment() : Fragment() {
                 .setMessage(des)
                 .setPositiveButton("OK") { dialog, which ->
                     val intent = Intent (super.getContext(), FragmentActivity::class.java)
+                    intent.putExtra("correct", correct)
+                    intent.putExtra("category", category)
                     startActivity(intent)
                 }
                 .show()
+
         }
     }
 }
