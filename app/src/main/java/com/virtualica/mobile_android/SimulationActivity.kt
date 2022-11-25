@@ -6,10 +6,8 @@ import android.media.RingtoneManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.dataClasses.Question
@@ -26,6 +24,23 @@ class SimulationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_simulation)
         time()
         showFragment()
+
+
+        back_simulation.setOnClickListener{
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Si sales, no se calcularan tus estadisticas, estas seguro?")
+                .setNegativeButton("¡Sigamos entrenando!") { _, _ ->
+
+                }
+                .setPositiveButton("¡Si!") { _, _ ->
+                    val intent = Intent(this, FragmentActivity::class.java)
+                    startActivity(intent)
+
+                }
+                .show()
+        }
+
+
 
     }
 

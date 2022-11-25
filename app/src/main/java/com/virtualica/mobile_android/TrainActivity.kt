@@ -3,14 +3,11 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Question
-import com.virtualica.mobile_android.models.dataClasses.Themes
 import kotlinx.android.synthetic.main.practice.*
 
 class TrainActivity : AppCompatActivity() {

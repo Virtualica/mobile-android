@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/back_practice"
+            android:id="@+id/back_simulation"
             android:layout_width="33dp"
             android:layout_height="50dp"
             android:layout_marginStart="26dp"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_practice"
+            app:layout_constraintTop_toBottomOf="@+id/back_simulation"
             tools:visibility="visible" />
 
         <TextView
