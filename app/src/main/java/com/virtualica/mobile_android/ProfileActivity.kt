@@ -76,7 +76,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         usuarioInstitucion.text = "Institución: " + user.institution
         usuarioCorreo.text = "Correo: " + user.email
         storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(Uri.parse(it.toString())).into(profile)
+            Picasso.get().load(Uri.parse(it.toString()))
         }.addOnFailureListener {
             Log.e("Error", "No funca")
         }
