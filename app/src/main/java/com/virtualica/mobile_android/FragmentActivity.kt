@@ -21,6 +21,7 @@ import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Category
 import com.virtualica.mobile_android.models.dataClasses.Question
 import com.virtualica.mobile_android.models.dataClasses.User
+import kotlinx.android.synthetic.main.bottom_bar.*
 
 class FragmentActivity : AppCompatActivity() {
 
@@ -38,7 +39,14 @@ class FragmentActivity : AppCompatActivity() {
         setContentView(R.layout.bottom_bar)
         showFragment()
         appBar = findViewById(R.id.appbar)
-        vr = intent.extras?.getSerializable("virtualica") as Virtualica
+        vr = if(intent.extras?.getSerializable("virtualica") == null){
+            Log.e("FragmentActivity", "No se pudo obtener la información de la virtualica")
+            Virtualica()
+        }else{
+            Log.e("FragmentActivity", "Si se pudo obtener la información de la virtualica")
+            intent.extras?.getSerializable("virtualica") as Virtualica
+        }
+
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
@@ -67,6 +75,8 @@ class FragmentActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        /*
         storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
             Picasso.get().load(Uri.parse(it.toString())).into(profile)
         }.addOnFailureListener {
@@ -78,14 +88,23 @@ class FragmentActivity : AppCompatActivity() {
             val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
             startActivity(intent)
         }
-
+         */
         val correctAnswered = intent.getIntExtra("correct",0)
         val category = intent.getStringExtra("category")
+        val type = intent.getStringExtra("type")
+        Log.e("Se trajo este correct:  ",correctAnswered.toString())
+        Log.e("Se trajo esta category:  ",category.toString())
+        Log.e("Se trajo este type:  ",type.toString())
 
         if(correctAnswered != 0 && category != null){
-            Log.e("Se trajo este correct:  ",correctAnswered.toString())
-            Log.e("Se trajo esta category:  ",category.toString())
-            vr.caluclateStadistics(user.id,correctAnswered,category.toString())
+            if(type=="simulacro"){
+                vr.caluclateStadistics(user.id,correctAnswered,category.toString(),
+                    "$correctAnswered/100"
+                )
+            } else {
+                vr.caluclateStadistics(user.id,correctAnswered,category.toString(), "")
+            }
+
         }
 
     }
@@ -93,6 +112,8 @@ class FragmentActivity : AppCompatActivity() {
         val fragment = CategoryFragment()
         val bundle = Bundle()
         var count = 0
+        progressBar5.visibility = View.VISIBLE
+
         db.collection("categorias").get().addOnSuccessListener { res ->
             for (c in res){
                 val newC = c.toObject(Category::class.java).also {
@@ -104,6 +125,7 @@ class FragmentActivity : AppCompatActivity() {
             fragment.arguments = bundle
             val transaction = supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
             transaction.commit()
+            progressBar5.visibility = View.INVISIBLE
         }
     }
 

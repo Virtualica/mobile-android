@@ -3,10 +3,10 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Question
 import kotlinx.android.synthetic.main.practice.*
 
@@ -41,7 +41,7 @@ class TrainActivity : AppCompatActivity() {
         val bundle = Bundle()
 
         var count = 0
-
+        progressBar7.visibility = View.VISIBLE
         db.collection("preguntas").whereEqualTo("tema", topic).get().addOnSuccessListener { res ->
             for (q in res) {
                 val newQ = q.toObject(Question::class.java).also {
@@ -54,6 +54,7 @@ class TrainActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
                 .replace(R.id.questionContainer, fragment)
             transaction.commit()
+            progressBar7.visibility = View.INVISIBLE
         }
     }
 }

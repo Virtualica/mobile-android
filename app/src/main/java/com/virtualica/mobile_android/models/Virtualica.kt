@@ -1,5 +1,7 @@
 package com.virtualica.mobile_android.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -9,11 +11,13 @@ import com.virtualica.mobile_android.models.dataClasses.User
 import java.io.Serializable
 
 
-class Virtualica() : Serializable {
+class Virtualica():Serializable  {
 
     private var users : MutableList<User> = ArrayList()
     private var institutions: MutableList<Institution> = ArrayList()
-    val db = Firebase.firestore
+   // val db = Firebase.firestore
+
+
 
 
     fun addUserToList (user : User){
@@ -56,16 +60,17 @@ class Virtualica() : Serializable {
         return false
     }
 
-    fun caluclateStadistics(id:String,goodAnswered:Int,category:String){
+    fun caluclateStadistics(id:String,goodAnswered:Int,category:String,lastSimulation:String){
+        val db = Firebase.firestore
         var stadistic = Stadistic()
         db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
             Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
             if(res.isEmpty){
                 stadistic.idStudent = id
                 stadistic.mejorRacha = goodAnswered
-                stadistic.peorRacha = goodAnswered
                 stadistic.mejorCategoria = category
                 stadistic.peorCategoria = category
+                stadistic.ultimoSimulacrio = lastSimulation
                 db.collection("estadisticas").add(stadistic)
             }else{
                 for (doc in res){
@@ -75,9 +80,9 @@ class Virtualica() : Serializable {
                         stadistic.mejorRacha = goodAnswered
                         stadistic.mejorCategoria = category
                     }
-                    if(goodAnswered < stadistic.peorRacha){
-                        stadistic.peorRacha = goodAnswered
-                        stadistic.peorCategoria = category
+
+                    if (lastSimulation != ""){
+                        stadistic.ultimoSimulacrio = lastSimulation
                     }
                     db.collection("estadisticas").document(doc.id).set(stadistic)
                 }
@@ -85,4 +90,27 @@ class Virtualica() : Serializable {
         }
 
     }
+    //LLamar estos metodos en las actividades correspondientes
+    fun getStadisticOfAnUser(id: String):Stadistic{
+        val db = Firebase.firestore
+        var stadistic = Stadistic()
+        Log.e("TAG", "getStadisticOfAnUser: $id" )
+        db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
+            Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
+            if(res.isEmpty){
+                stadistic.idStudent = id
+                stadistic.mejorRacha = 0
+                stadistic.mejorCategoria = "Ninguna. ¡Ve y se el mejor!"
+                stadistic.peorCategoria = "Ninguna. Por ahora..."
+            }else{
+                for (doc in res){
+                    Log.e("doc",doc.data.toString())
+                    stadistic = doc.toObject(Stadistic::class.java)
+                }
+            }
+        }
+        return stadistic
+    }
+
+  
 }

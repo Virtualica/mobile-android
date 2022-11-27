@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/back_simulation"
             tools:visibility="visible" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:id="@+id/questionContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,13 +45,21 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar">
+        </ScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/progressBar7"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/questionContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/purple"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

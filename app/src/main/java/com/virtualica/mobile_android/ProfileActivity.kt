@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
+import com.virtualica.mobile_android.models.dataClasses.Stadistic
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.profile.*
 import kotlin.math.log
@@ -34,6 +35,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private val storage = Firebase.storage
     private lateinit var vr : Virtualica
     private lateinit var user : User
+    private lateinit var stadistics : Stadistic
     private lateinit var nombrePerfil: TextView
     private lateinit var usuarioEdad: TextView
     private lateinit var usuarioInstitucion: TextView
@@ -51,6 +53,9 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
+
+        Log.e("ProfileActivity", "User: ${user.name}")
+        stadistics = vr.getStadisticOfAnUser(user.id)
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
@@ -75,7 +80,11 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         usuarioEdad.text = "Edad: " + user.age
         usuarioInstitucion.text = "Institución: " + user.institution
         usuarioCorreo.text = "Correo: " + user.email
-        storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
+        pointsRacha.text = stadistics.mejorRacha.toString()
+           pointsSimulacro.text = stadistics.ultimoSimulacrio
+           asignaturaMejor.text = stadistics.mejorCategoria
+           asignaturaPeor.text = stadistics.peorCategoria
+            storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
             Picasso.get().load(Uri.parse(it.toString())).into(profile)
         }.addOnFailureListener {
             Log.e("Error", "No funca")
@@ -144,5 +153,26 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         } else {
             completion(null)
         }
+    }
+
+    fun getStadisticOfAnUser(id: String):Stadistic{
+      //  val db = Firebase.firestore
+        var stadistic = Stadistic()
+        Log.e("TAG", "getStadisticOfAnUser: $id" )
+        db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
+            Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
+            if(res.isEmpty){
+                stadistic.idStudent = id
+                stadistic.mejorRacha = 0
+                stadistic.mejorCategoria = "Ninguna. ¡Ve y se el mejor!"
+                stadistic.peorCategoria = "Ninguna. Por ahora..."
+            }else{
+                for (doc in res){
+                    Log.e("doc",doc.data.toString())
+                    stadistic = doc.toObject(Stadistic::class.java)
+                }
+            }
+        }
+        return stadistic
     }
 }

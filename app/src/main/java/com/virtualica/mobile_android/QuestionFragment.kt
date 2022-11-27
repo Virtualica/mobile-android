@@ -130,9 +130,22 @@ class QuestionFragment() : Fragment() {
                 .setTitle(msg)
                 .setMessage(des)
                 .setPositiveButton("OK") { dialog, which ->
-                    val intent = Intent (super.getContext(), FragmentActivity::class.java)
-                    intent.putExtra("correct", correct)
-                    intent.putExtra("category", category)
+                    val intent = Intent (super.getContext(), FragmentActivity::class.java).apply {
+
+                         putExtra("correct", correct)
+                        putExtra("category", category)
+                        if(questions.size==18){
+                        Log.e("Type", "Sale su simulacro")
+                        putExtra("type", "simulacro")
+                        } else {
+                        Log.e("Type", "Sale su examen")
+                        putExtra("type", "practica")
+                        }
+
+
+
+                    }
+
                     startActivity(intent)
                 }
                 .show()

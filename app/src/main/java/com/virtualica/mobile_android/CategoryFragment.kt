@@ -28,11 +28,12 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
             categories.add(c)
         }
         _binding = CategoryListBinding.inflate(inflater, container, false)
-        val adapter = MycategoryRecyclerViewAdapter(this, categories)
         val recycler = binding.listInCategory
+        val adapter = MycategoryRecyclerViewAdapter(this, categories, binding.progressBar6)
         recycler.setHasFixedSize(true)
         recycler.layoutManager = LinearLayoutManager(activity)
         recycler.adapter = adapter
+
 
         return binding.root
     }

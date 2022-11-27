@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.JsonReader
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +29,7 @@ class LoginView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_container)
+        progressBar2.visibility = View.INVISIBLE
 
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
         internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
@@ -44,7 +46,7 @@ class LoginView : AppCompatActivity() {
             val intent = Intent(this, RegisterView::class.java)
             intent.putExtra("virtualica", vr)
             startActivity(intent)
-            finish();
+            finish()
         }
 
 
@@ -53,6 +55,7 @@ class LoginView : AppCompatActivity() {
         }
 
         btnLoginGoogle.setOnClickListener(){
+            progressBar2.visibility = View.VISIBLE
             loginGoogle()
         }
 
@@ -68,10 +71,12 @@ class LoginView : AppCompatActivity() {
             Firebase.auth.signInWithEmailAndPassword(username, password).addOnSuccessListener {
                 val fbUserCurr = Firebase.auth.currentUser
                 if(fbUserCurr!!.isEmailVerified){
+                    progressBar2.visibility = View.VISIBLE
                     Firebase.firestore.collection("users").document(fbUserCurr.uid).get().addOnSuccessListener {
                         val userActive = it.toObject(User::class.java)
                         keepSessionStarted(userActive!!, iMemory)
                         goMainActivity()
+                        finish()
                     }
                 } else {
                     Toast.makeText(this,"Por favor, verifica tu cuenta",Toast.LENGTH_SHORT).show()
@@ -101,19 +106,26 @@ class LoginView : AppCompatActivity() {
             if(accountGoogle != null){
                 val credentialUser = GoogleAuthProvider.getCredential(accountGoogle.idToken, null)
                 Firebase.auth.signInWithCredential(credentialUser).addOnSuccessListener {
-                    val user = User(
-                        Firebase.auth.currentUser?.uid.toString(),
-                        accountGoogle.givenName!!,
-                        accountGoogle.email!!,
-                        "Sin institución",
-                        "N/A", "N/A", "false"
-                    )
-                    Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
-                        keepSessionStarted(user, internalMemory)
-                        goMainActivity()
+                    Firebase.firestore.collection("users").document(Firebase.auth.currentUser?.uid.toString()).get().addOnSuccessListener { res ->
+                        if(res.data == null){
+                            Log.e("Error", "Sapa")
+                            val intent = Intent(this, CompleteLoginGoogle::class.java)
+                            intent.putExtra("virtualica", vr)
+                            intent.putExtra("uid", Firebase.auth.currentUser?.uid.toString())
+                            intent.putExtra("givenName", accountGoogle.givenName!!)
+                            intent.putExtra("email", accountGoogle.email!!)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val user = res.toObject(User::class.java) as User
+                            keepSessionStarted(user, internalMemory)
+                            goMainActivity()
+                        }
                     }
                 }
             }
+        } else {
+            progressBar2.visibility = View.INVISIBLE
         }
     }
 

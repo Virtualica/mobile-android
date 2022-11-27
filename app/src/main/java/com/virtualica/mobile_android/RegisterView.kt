@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -18,12 +19,13 @@ import java.util.*
 
 class RegisterView : AppCompatActivity() {
 
-    private lateinit var vr : Virtualica;
+    private lateinit var vr : Virtualica
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_container);
+        setContentView(R.layout.register_container)
+        progressBar3.visibility = View.INVISIBLE
 
         vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
@@ -37,7 +39,7 @@ class RegisterView : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnRegister.setOnClickListener{
+        btnLoginComplete.setOnClickListener{
             registerUser()
         }
     }
@@ -54,8 +56,6 @@ class RegisterView : AppCompatActivity() {
             DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
             myCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
-
-
     }
 
     private fun updateLabelAge(myCalendar : Calendar){
@@ -71,7 +71,7 @@ class RegisterView : AppCompatActivity() {
             && (btnAge.text.toString().isNotEmpty() && btnAge.text.toString() != "Edad")){
             if(checkBox.isChecked){
                 if(vr.validateInstitution(autoCompleteInstitution.text.toString())){
-                    if(email_input.text.toString() == "Sin institución"){
+                    if(autoCompleteInstitution.text.toString() == "Sin institución"){
                         onRegisterWithAuth(false)
                     } else {
                         if (vr.validateStudentInInstitution(email_input.text.toString(), autoCompleteInstitution.text.toString())){
@@ -101,6 +101,7 @@ class RegisterView : AppCompatActivity() {
             val user = User(
                 Firebase.auth.currentUser?.uid.toString(),
                 name_input.text.toString(),
+                userName_input.text.toString(),
                 email_input.text.toString(),
                 autoCompleteInstitution.text.toString(),
                 phone_input.text.toString(),
@@ -111,11 +112,13 @@ class RegisterView : AppCompatActivity() {
             if (vr.validateStudentInInstitution(user.email, user.institution)){
                 user.isPremiumStudent = true.toString()
                 Firebase.firestore.collection("users").document(user.id).set(user).addOnSuccessListener {
+                    progressBar3.visibility = View.VISIBLE
                     vr.addUserToList(user)
                     sendVerificationViaEmail()
+
                 }
             } else {
-                Toast.makeText(this, "No perteneces a esta institución", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No perteneces a esta institución", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
             showErrorInEmailAndPassword(it.message.toString())
