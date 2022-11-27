@@ -96,24 +96,28 @@ class QuestionFragment() : Fragment() {
 
 
     private fun changeData(inf : View){
-        inf.countQuestion.text = "Pregunta " + (pos+1).toString()
-        inf.questionContent.text = questions[pos].enunciado
-        inf.opA.text = "A. ${questions[pos].A}"
-        inf.opB.text = "B. ${questions[pos].B}"
-        inf.opC.text = "C. ${questions[pos].C}"
-        inf.opD.text = "D. ${questions[pos].D}"
-        if(questions[pos].foto != ""){
-            inf.progressBar9.visibility = View.VISIBLE
-            val localPhoto = Firebase.storage.reference.child("questions_photo/${questions[pos].foto}")
-            val localFile = File.createTempFile("image", "jpg")
-            localPhoto.getFile(localFile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                inf.imageQuestion.setImageBitmap(bitmap)
-                inf.progressBar9.visibility = View.INVISIBLE
-                inf.imageQuestion.visibility = View.VISIBLE
+        if(questions.isNotEmpty()){
+            inf.countQuestion.text = "Pregunta " + (pos+1).toString()
+            inf.questionContent.text = questions[pos].enunciado
+            inf.opA.text = "A. ${questions[pos].A}"
+            inf.opB.text = "B. ${questions[pos].B}"
+            inf.opC.text = "C. ${questions[pos].C}"
+            inf.opD.text = "D. ${questions[pos].D}"
+            if(questions[pos].foto != ""){
+                inf.progressBar9.visibility = View.VISIBLE
+                val localPhoto = Firebase.storage.reference.child("questions_photo/${questions[pos].foto}")
+                val localFile = File.createTempFile("image", "jpg")
+                localPhoto.getFile(localFile).addOnSuccessListener {
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    inf.imageQuestion.setImageBitmap(bitmap)
+                    inf.progressBar9.visibility = View.INVISIBLE
+                    inf.imageQuestion.visibility = View.VISIBLE
+                }
+            } else {
+                inf.imageQuestion.visibility = View.INVISIBLE
             }
         } else {
-            inf.imageQuestion.visibility = View.INVISIBLE
+            dialogue("Sin preguntas", "Por favor disculpanos, hasta el momento no contamos con preguntas para este tema", inf)
         }
     }
 

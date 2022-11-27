@@ -82,7 +82,7 @@ class FragmentActivity : AppCompatActivity() {
     }
 
 
-    private fun showFragment() {
+    fun showFragment() {
         val fragment = CategoryFragment()
         val bundle = Bundle()
         var count = 0

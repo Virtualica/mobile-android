@@ -71,7 +71,8 @@ class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 if(isEnabled){
-                    requireActivity().startActivity(Intent(requireContext(), FragmentActivity::class.java))
+                    val test : FragmentActivity = requireActivity() as FragmentActivity
+                    test.showFragment()
                 }
             }
         })
