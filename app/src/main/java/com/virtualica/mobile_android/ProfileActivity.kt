@@ -3,76 +3,75 @@ package com.virtualica.mobile_android
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Stadistic
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.profile.*
-import kotlin.math.log
+import java.io.File
+
 
 class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val REQUEST_PERMISSION = 100
     private var imageUri: Uri? = null
-    private val db = Firebase.firestore
     private val storage = Firebase.storage
-    private lateinit var vr : Virtualica
+    private val db = Firebase.firestore
     private lateinit var user : User
     private lateinit var stadistics : Stadistic
-    private lateinit var nombrePerfil: TextView
-    private lateinit var usuarioEdad: TextView
-    private lateinit var usuarioInstitucion: TextView
-    private lateinit var usuarioCorreo: TextView
-    private lateinit var profile: ImageView
-    private lateinit var logo: ImageView
+    private lateinit var internalMemory : SharedPreferences
+    private var out = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
 
-        vr = intent.extras?.getSerializable("virtualica") as Virtualica
-
-        val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
+        internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
 
         Log.e("ProfileActivity", "User: ${user.name}")
-        stadistics = vr.getStadisticOfAnUser(user.id)
+        stadistics = intent.extras?.getSerializable("stadistics") as Stadistic
 
-        logo = findViewById(R.id.logo)
+        Log.e("ProfileActivity", "Stadistics: ${stadistics.toString()}")
+
         logo.setOnClickListener {
-            val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
-            startActivity(intent)
+            onBackPressed()
         }
 
-        profile = findViewById(R.id.profile)
         profile.setOnClickListener {
             checkExternalStoragePermission()
         }
-        nombrePerfil = findViewById(R.id.nombrePerfil)
-        usuarioEdad = findViewById(R.id.usuarioEdad)
-        usuarioInstitucion = findViewById(R.id.usuarioInstitucion)
-        usuarioCorreo = findViewById(R.id.usuarioCorreo)
         setFields()
 
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(out){
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setFields() {
@@ -81,13 +80,20 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         usuarioInstitucion.text = "Institución: " + user.institution
         usuarioCorreo.text = "Correo: " + user.email
         pointsRacha.text = stadistics.mejorRacha.toString()
-           pointsSimulacro.text = stadistics.ultimoSimulacrio
-           asignaturaMejor.text = stadistics.mejorCategoria
-           asignaturaPeor.text = stadistics.peorCategoria
-            storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(Uri.parse(it.toString())).into(profile)
-        }.addOnFailureListener {
-            Log.e("Error", "No funca")
+        pointsSimulacro.text = stadistics.ultimoSimulacrio
+        asignaturaMejor.text = stadistics.mejorCategoria
+        asignaturaPeor.text = stadistics.peorCategoria
+        if(user.foto != ""){
+            profile.visibility = View.INVISIBLE
+            progressBar10.visibility = View.VISIBLE
+            val localPhotoProfile = Firebase.storage.reference.child("profile_photo/${user.foto}")
+            val localFileProfile = File.createTempFile("image", "jpg")
+            localPhotoProfile.getFile(localFileProfile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFileProfile.absolutePath)
+                profile.setImageBitmap(bitmap)
+                progressBar10.visibility = View.INVISIBLE
+                profile.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -124,55 +130,28 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 imageUri = it.data?.data
-                uploadImage { imageUrl ->
-                    Log.e("Error", "URL2$imageUrl")
-                    if (imageUrl != null) {
-                        Picasso.get().load(Uri.parse(imageUrl)).into(profile)
-                    }
-                }
-                Log.e("Error", "URL" + imageUri.toString())
+                uploadImage()
             }
         }
 
-    private fun uploadImage(completion: (String?) -> Unit) {
+    private fun uploadImage() {
         if (this.imageUri != null) {
+            profile.visibility = View.INVISIBLE
+            progressBar10.visibility = View.VISIBLE
             val storageRef = storage.reference
             val reportRef = storageRef.child("profile_photo/" + user.id)
-            val uploadTask = reportRef.putFile(imageUri!!)
-            uploadTask.addOnFailureListener {
-                completion(null)
-            }.addOnSuccessListener {
-                reportRef.downloadUrl
-                    .addOnSuccessListener {
-                        completion(it.toString())
-                    }
-                    .addOnCanceledListener {
-                        completion(null)
-                    }
+            reportRef.putFile(imageUri!!)
+            user.foto = user.id
+            db.collection("users").document(user.id).set(user).addOnSuccessListener {
+                profile.setImageURI(imageUri)
+                profile.visibility = View.VISIBLE
+                progressBar10.visibility = View.INVISIBLE
+                val newJson = Gson().toJson(user)
+                internalMemory.edit().putString("users", newJson).apply()
+                out = true
             }
-        } else {
-            completion(null)
         }
     }
 
-    fun getStadisticOfAnUser(id: String):Stadistic{
-      //  val db = Firebase.firestore
-        var stadistic = Stadistic()
-        Log.e("TAG", "getStadisticOfAnUser: $id" )
-        db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
-            Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
-            if(res.isEmpty){
-                stadistic.idStudent = id
-                stadistic.mejorRacha = 0
-                stadistic.mejorCategoria = "Ninguna. ¡Ve y se el mejor!"
-                stadistic.peorCategoria = "Ninguna. Por ahora..."
-            }else{
-                for (doc in res){
-                    Log.e("doc",doc.data.toString())
-                    stadistic = doc.toObject(Stadistic::class.java)
-                }
-            }
-        }
-        return stadistic
-    }
+
 }

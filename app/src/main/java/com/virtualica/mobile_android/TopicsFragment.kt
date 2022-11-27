@@ -1,13 +1,17 @@
 package com.virtualica.mobile_android
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.virtualica.mobile_android.databinding.TopicListBinding
 import com.virtualica.mobile_android.models.dataClasses.Themes
 
@@ -39,8 +43,11 @@ class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         recycler.setHasFixedSize(true)
         recycler.layoutManager = GridLayoutManager(activity, columnCount)
         recycler.adapter = adapter
+        setupOnBackPressed()
+
         return binding.root
     }
+
 
 
     override fun onDestroyView() {
@@ -59,4 +66,16 @@ class TopicsFragment : Fragment(),MytopicsRecyclerViewAdapter.OnItemClickListene
         }
         startActivity(intent)
     }
+
+    private fun setupOnBackPressed(){
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(isEnabled){
+                    requireActivity().startActivity(Intent(requireContext(), FragmentActivity::class.java))
+                }
+            }
+        })
+    }
+
+
 }

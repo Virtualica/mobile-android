@@ -1,17 +1,23 @@
 package com.virtualica.mobile_android
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.virtualica.mobile_android.models.dataClasses.Question
+import kotlinx.android.synthetic.main.question.*
 import kotlinx.android.synthetic.main.question.view.*
+import java.io.File
 
 
 class QuestionFragment() : Fragment() {
@@ -36,7 +42,6 @@ class QuestionFragment() : Fragment() {
             val q : Question = dataQuestion.get("question${i}") as Question
             questions.add(q)
         }
-
         changeData(inf)
         inf.next.setOnClickListener {
             if(res != null){
@@ -78,6 +83,8 @@ class QuestionFragment() : Fragment() {
             inf.opD.setTextColor(Color.parseColor("#FFFFFFFF"))
             res = "D"
         }
+
+
         return inf
     }
 
@@ -100,6 +107,19 @@ class QuestionFragment() : Fragment() {
         inf.opB.text = "B. ${questions[pos].B}"
         inf.opC.text = "C. ${questions[pos].C}"
         inf.opD.text = "D. ${questions[pos].D}"
+        if(questions[pos].foto != ""){
+            inf.progressBar9.visibility = View.VISIBLE
+            val localPhoto = Firebase.storage.reference.child("questions_photo/${questions[pos].foto}")
+            val localFile = File.createTempFile("image", "jpg")
+            localPhoto.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                inf.imageQuestion.setImageBitmap(bitmap)
+                inf.progressBar9.visibility = View.INVISIBLE
+                inf.imageQuestion.visibility = View.VISIBLE
+            }
+        } else {
+            inf.imageQuestion.visibility = View.INVISIBLE
+        }
     }
 
 
@@ -152,4 +172,5 @@ class QuestionFragment() : Fragment() {
 
         }
     }
+
 }

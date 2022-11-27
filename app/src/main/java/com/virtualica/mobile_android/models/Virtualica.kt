@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.virtualica.mobile_android.models.dataClasses.Institution
 import com.virtualica.mobile_android.models.dataClasses.Stadistic
@@ -15,6 +16,7 @@ class Virtualica():Serializable  {
 
     private var users : MutableList<User> = ArrayList()
     private var institutions: MutableList<Institution> = ArrayList()
+
    // val db = Firebase.firestore
 
 
@@ -66,6 +68,8 @@ class Virtualica():Serializable  {
         db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
             Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
             if(res.isEmpty){
+                //add a ramdom uid for id field
+
                 stadistic.idStudent = id
                 stadistic.mejorRacha = goodAnswered
                 stadistic.mejorCategoria = category
@@ -74,7 +78,7 @@ class Virtualica():Serializable  {
                 db.collection("estadisticas").add(stadistic)
             }else{
                 for (doc in res){
-                    Log.e("doc",doc.data.toString())
+                    Log.e("doc: ",doc.id)
                     stadistic = doc.toObject(Stadistic::class.java)
                     if(goodAnswered > stadistic.mejorRacha){
                         stadistic.mejorRacha = goodAnswered
@@ -93,7 +97,7 @@ class Virtualica():Serializable  {
     //LLamar estos metodos en las actividades correspondientes
     fun getStadisticOfAnUser(id: String):Stadistic{
         val db = Firebase.firestore
-        var stadistic = Stadistic()
+         var stadistic = Stadistic()
         Log.e("TAG", "getStadisticOfAnUser: $id" )
         db.collection("estadisticas").whereEqualTo("idStudent",id).get().addOnSuccessListener { res ->
             Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
@@ -104,11 +108,16 @@ class Virtualica():Serializable  {
                 stadistic.peorCategoria = "Ninguna. Por ahora..."
             }else{
                 for (doc in res){
-                    Log.e("doc",doc.data.toString())
-                    stadistic = doc.toObject(Stadistic::class.java)
+                    Log.e("doc ",doc.data.toString())
+                    doc.toObject(Stadistic::class.java).also {
+                        it.id = doc.id
+                        stadistic = it
+                    }
+                    Log.e("look what it is ",stadistic.toString())
                 }
             }
         }
+        Log.e("From VR", "Stadistics: ${stadistic.toString()}")
         return stadistic
     }
 

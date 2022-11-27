@@ -1,36 +1,31 @@
 package com.virtualica.mobile_android
 
 import android.content.Intent
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Category
-import com.virtualica.mobile_android.models.dataClasses.Question
+import com.virtualica.mobile_android.models.dataClasses.Stadistic
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.bottom_bar.*
+import java.io.File
 
 class FragmentActivity : AppCompatActivity() {
 
     private lateinit var navigator:BottomNavigationView
     private lateinit var profile:ImageView
-    private lateinit var logo:ImageView
-    private val storage = Firebase.storage
     private  lateinit var appBar:AppBarLayout
-    private lateinit var vr : Virtualica
     private lateinit var user : User
     private val db = Firebase.firestore
 
@@ -39,18 +34,14 @@ class FragmentActivity : AppCompatActivity() {
         setContentView(R.layout.bottom_bar)
         showFragment()
         appBar = findViewById(R.id.appbar)
-        vr = if(intent.extras?.getSerializable("virtualica") == null){
-            Log.e("FragmentActivity", "No se pudo obtener la información de la virtualica")
-            Virtualica()
-        }else{
-            Log.e("FragmentActivity", "Si se pudo obtener la información de la virtualica")
-            intent.extras?.getSerializable("virtualica") as Virtualica
-        }
+         val vr = Virtualica()
 
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
+        loadImageProfile()
+
 
         navigator = findViewById(R.id.navigator)
         navigator.setOnItemSelectedListener { menuItem ->
@@ -69,26 +60,35 @@ class FragmentActivity : AppCompatActivity() {
             true
         }
 
-        profile = findViewById(R.id.profile)
+        profile = findViewById(R.id.profileAppBar)
         profile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java).apply { putExtra("virtualica", vr) }
-            startActivity(intent)
+            db.collection("estadisticas").whereEqualTo("idStudent",user.id).get().addOnSuccessListener { res ->
+                Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
+                var stadistics = Stadistic()
+                if(res.isEmpty){
+                    stadistics.idStudent = user.id
+                    stadistics.mejorRacha = 0
+                    stadistics.mejorCategoria = "Ninguna"
+                    stadistics.peorCategoria = "Ninguna"
+                }else{
+                    for (doc in res){
+                        Log.e("doc ",doc.data.toString())
+                        doc.toObject(Stadistic::class.java).also {
+                            it.id = doc.id
+                            stadistics = it
+                        }
+                        Log.e("look what it is ",stadistics.toString())
+                    }
+                }
+                Log.e("TAG", "onCreate: ${stadistics.toString()}" )
+                val intent = Intent(this, ProfileActivity::class.java).apply {
+                    putExtra("stadistics",stadistics)
+                }
+                startActivity(intent)
+            }
+
         }
 
-
-        /*
-        storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(Uri.parse(it.toString())).into(profile)
-        }.addOnFailureListener {
-            Log.e("Error", "No funca")
-        }
-
-        logo = findViewById(R.id.logo)
-        logo.setOnClickListener {
-            val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
-            startActivity(intent)
-        }
-         */
         val correctAnswered = intent.getIntExtra("correct",0)
         val category = intent.getStringExtra("category")
         val type = intent.getStringExtra("type")
@@ -98,16 +98,31 @@ class FragmentActivity : AppCompatActivity() {
 
         if(correctAnswered != 0 && category != null){
             if(type=="simulacro"){
+                Log.e("Type:  ","Es simulacro")
                 vr.caluclateStadistics(user.id,correctAnswered,category.toString(),
                     "$correctAnswered/100"
                 )
             } else {
+                Log.e("Type:  ","Practica")
                 vr.caluclateStadistics(user.id,correctAnswered,category.toString(), "")
             }
 
         }
 
     }
+
+    private fun loadImageProfile(){
+        if(user.foto != ""){
+            val localPhotoProfile = Firebase.storage.reference.child("profile_photo/${user.foto}")
+            val localFileProfile = File.createTempFile("image", "jpg")
+            localPhotoProfile.getFile(localFileProfile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFileProfile.absolutePath)
+                profileAppBar.setImageBitmap(bitmap)
+            }
+        }
+    }
+
+
     private fun showFragment() {
         val fragment = CategoryFragment()
         val bundle = Bundle()

@@ -1,24 +1,32 @@
 package com.virtualica.mobile_android
 
+import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.Ringtone
 import android.media.RingtoneManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.virtualica.mobile_android.models.dataClasses.Question
 import kotlinx.android.synthetic.main.activity_simulation.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import kotlin.random.Random
 import kotlin.random.nextInt
 
+
 class SimulationActivity : AppCompatActivity() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +57,7 @@ class SimulationActivity : AppCompatActivity() {
 
                 }
                 .setPositiveButton("¡Si!") { _, _ ->
-                    val intent = Intent(this, FragmentActivity::class.java)
-                    startActivity(intent)
-
+                    onBackPressed()
                 }
                 .show()
         }
@@ -61,6 +67,7 @@ class SimulationActivity : AppCompatActivity() {
     }
 
     private fun showFragment() {
+        val fileOutputStream : FileOutputStream
         val db = Firebase.firestore
         val fragment = QuestionFragment()
         val bundle = Bundle()
@@ -88,8 +95,10 @@ class SimulationActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun putDataQuestion(questions : MutableList<Question>) : MutableList<Question>{
-        var questionsToPut : MutableList<Question> = ArrayList()
+        val questionsToPut : MutableList<Question> = ArrayList()
         val categories = arrayOf("Matemáticas", "Inglés", "Ciencias Sociales", "Lectura Crítica", "Ciencias Naturales")
         for (c in categories){
             val newQuestions = putDataQuestionCategory(c, questions)

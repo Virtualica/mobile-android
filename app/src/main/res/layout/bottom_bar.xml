@@ -40,18 +40,34 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/recurso2logo" />
 
-            <ImageView
-                android:id="@+id/profile"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewFragment"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile_stock" />
+                android:backgroundTint="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/profileAppBar"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/profile_stock" />
+
+            </androidx.cardview.widget.CardView>
+
+
         </com.google.android.material.appbar.MaterialToolbar>
 
         <ImageView

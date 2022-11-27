@@ -58,6 +58,8 @@ class  MainActivity : AppCompatActivity() {
             putExtra("virtualica", virtualica)
         }
         startActivity(intent)
-        finish();
+        finish()
     }
+
+
 }
