@@ -29,8 +29,7 @@ class TrainActivity : AppCompatActivity() {
 
                 }
                 .setPositiveButton("¡Si!") { _, _ ->
-                    val intent = Intent(this, FragmentActivity::class.java)
-                    startActivity(intent)
+                    onBackPressed()
 
                 }
                 .show()

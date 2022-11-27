@@ -3,11 +3,15 @@ package com.virtualica.mobile_android
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,49 +28,48 @@ import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.profile.*
+import java.io.File
 import kotlin.math.log
 
 class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val REQUEST_PERMISSION = 100
     private var imageUri: Uri? = null
-    private val db = Firebase.firestore
     private val storage = Firebase.storage
+    private val db = Firebase.firestore
     private lateinit var user : User
-    private lateinit var nombrePerfil: TextView
-    private lateinit var usuarioEdad: TextView
-    private lateinit var usuarioInstitucion: TextView
-    private lateinit var usuarioCorreo: TextView
-    private lateinit var profile: ImageView
-    private lateinit var logo: ImageView
+    private lateinit var internalMemory : SharedPreferences
+    private var out = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
 
-        //vr = intent.extras?.getSerializable("virtualica") as Virtualica
-
-        val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
+        internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
 
-        logo = findViewById(R.id.logo)
         logo.setOnClickListener {
-            val intent = Intent(this, FragmentActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
-        profile = findViewById(R.id.profile)
         profile.setOnClickListener {
             checkExternalStoragePermission()
         }
-        nombrePerfil = findViewById(R.id.nombrePerfil)
-        usuarioEdad = findViewById(R.id.usuarioEdad)
-        usuarioInstitucion = findViewById(R.id.usuarioInstitucion)
-        usuarioCorreo = findViewById(R.id.usuarioCorreo)
         setFields()
 
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(out){
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setFields() {
@@ -74,10 +77,17 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         usuarioEdad.text = "Edad: " + user.age
         usuarioInstitucion.text = "Institución: " + user.institution
         usuarioCorreo.text = "Correo: " + user.email
-        storage.reference.child("profile_photo/" + user.id).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(Uri.parse(it.toString()))
-        }.addOnFailureListener {
-            Log.e("Error", "No funca")
+        if(user.foto != ""){
+            profile.visibility = View.INVISIBLE
+            progressBar10.visibility = View.VISIBLE
+            val localPhotoProfile = Firebase.storage.reference.child("profile_photo/${user.foto}")
+            val localFileProfile = File.createTempFile("image", "jpg")
+            localPhotoProfile.getFile(localFileProfile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFileProfile.absolutePath)
+                profile.setImageBitmap(bitmap)
+                progressBar10.visibility = View.INVISIBLE
+                profile.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -114,34 +124,26 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 imageUri = it.data?.data
-                uploadImage { imageUrl ->
-                    Log.e("Error", "URL2$imageUrl")
-                    if (imageUrl != null) {
-                        Picasso.get().load(Uri.parse(imageUrl)).into(profile)
-                    }
-                }
-                Log.e("Error", "URL" + imageUri.toString())
+                uploadImage()
             }
         }
 
-    private fun uploadImage(completion: (String?) -> Unit) {
+    private fun uploadImage() {
         if (this.imageUri != null) {
+            profile.visibility = View.INVISIBLE
+            progressBar10.visibility = View.VISIBLE
             val storageRef = storage.reference
             val reportRef = storageRef.child("profile_photo/" + user.id)
-            val uploadTask = reportRef.putFile(imageUri!!)
-            uploadTask.addOnFailureListener {
-                completion(null)
-            }.addOnSuccessListener {
-                reportRef.downloadUrl
-                    .addOnSuccessListener {
-                        completion(it.toString())
-                    }
-                    .addOnCanceledListener {
-                        completion(null)
-                    }
+            reportRef.putFile(imageUri!!)
+            user.foto = user.id
+            db.collection("users").document(user.id).set(user).addOnSuccessListener {
+                profile.setImageURI(imageUri)
+                profile.visibility = View.VISIBLE
+                progressBar10.visibility = View.INVISIBLE
+                val newJson = Gson().toJson(user)
+                internalMemory.edit().putString("users", newJson).apply()
+                out = true
             }
-        } else {
-            completion(null)
         }
     }
 }

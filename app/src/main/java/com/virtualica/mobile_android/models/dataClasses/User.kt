@@ -10,7 +10,8 @@ data class User(
     var institution:String = "",
     var phone: String = "",
     var age: String = "",
-    var isPremiumStudent: String = ""
+    var isPremiumStudent: String = "",
+    var foto : String = ""
 ) : Serializable{
     override fun toString(): String {
         return name

@@ -114,7 +114,6 @@ class QuestionFragment() : Fragment() {
             }
         } else {
             inf.imageQuestion.visibility = View.INVISIBLE
-            inf.imageQuestion.minimumHeight = 0
         }
     }
 
