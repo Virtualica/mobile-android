@@ -78,6 +78,8 @@ class QuestionFragment() : Fragment() {
             inf.opD.setTextColor(Color.parseColor("#FFFFFFFF"))
             res = "D"
         }
+
+
         return inf
     }
 
@@ -150,4 +152,5 @@ class QuestionFragment() : Fragment() {
                 .show()
         }
     }
+
 }

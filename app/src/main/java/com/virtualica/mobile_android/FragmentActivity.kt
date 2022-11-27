@@ -65,7 +65,7 @@ class FragmentActivity : AppCompatActivity() {
 
         profile = findViewById(R.id.profile)
         profile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java).apply { putExtra("virtualica", vr) }
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 

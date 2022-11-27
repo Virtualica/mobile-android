@@ -32,7 +32,6 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private var imageUri: Uri? = null
     private val db = Firebase.firestore
     private val storage = Firebase.storage
-    private lateinit var vr : Virtualica
     private lateinit var user : User
     private lateinit var nombrePerfil: TextView
     private lateinit var usuarioEdad: TextView
@@ -46,7 +45,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
 
-        vr = intent.extras?.getSerializable("virtualica") as Virtualica
+        //vr = intent.extras?.getSerializable("virtualica") as Virtualica
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
@@ -54,7 +53,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
 
         logo = findViewById(R.id.logo)
         logo.setOnClickListener {
-            val intent = Intent(this, FragmentActivity::class.java).apply { putExtra("virtualica", vr) }
+            val intent = Intent(this, FragmentActivity::class.java)
             startActivity(intent)
         }
 
