@@ -63,7 +63,6 @@ class FragmentActivity : AppCompatActivity() {
         profile = findViewById(R.id.profileAppBar)
         profile.setOnClickListener {
             db.collection("estadisticas").whereEqualTo("idStudent",user.id).get().addOnSuccessListener { res ->
-                Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
                 var stadistics = Stadistic()
                 if(res.isEmpty){
                     stadistics.idStudent = user.id
@@ -72,15 +71,12 @@ class FragmentActivity : AppCompatActivity() {
                     stadistics.peorCategoria = "Ninguna"
                 }else{
                     for (doc in res){
-                        Log.e("doc ",doc.data.toString())
                         doc.toObject(Stadistic::class.java).also {
                             it.id = doc.id
                             stadistics = it
                         }
-                        Log.e("look what it is ",stadistics.toString())
                     }
                 }
-                Log.e("TAG", "onCreate: ${stadistics.toString()}" )
                 val intent = Intent(this, ProfileActivity::class.java).apply {
                     putExtra("stadistics",stadistics)
                 }
@@ -92,18 +88,13 @@ class FragmentActivity : AppCompatActivity() {
         val correctAnswered = intent.getIntExtra("correct",0)
         val category = intent.getStringExtra("category")
         val type = intent.getStringExtra("type")
-        Log.e("Se trajo este correct:  ",correctAnswered.toString())
-        Log.e("Se trajo esta category:  ",category.toString())
-        Log.e("Se trajo este type:  ",type.toString())
 
         if(correctAnswered != 0 && category != null){
             if(type=="simulacro"){
-                Log.e("Type:  ","Es simulacro")
                 vr.caluclateStadistics(user.id,correctAnswered,category.toString(),
                     "$correctAnswered/100"
                 )
             } else {
-                Log.e("Type:  ","Practica")
                 vr.caluclateStadistics(user.id,correctAnswered,category.toString(), "")
             }
 

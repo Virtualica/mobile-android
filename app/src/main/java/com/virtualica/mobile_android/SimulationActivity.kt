@@ -1,9 +1,7 @@
 package com.virtualica.mobile_android
 
-import android.content.ContextWrapper
+
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Bundle
@@ -12,18 +10,13 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import com.virtualica.mobile_android.models.dataClasses.Question
 import kotlinx.android.synthetic.main.activity_simulation.*
-import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import kotlin.random.Random
-import kotlin.random.nextInt
+
 
 
 class SimulationActivity : AppCompatActivity() {

@@ -48,10 +48,10 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
 
-        Log.e("ProfileActivity", "User: ${user.name}")
+
         stadistics = intent.extras?.getSerializable("stadistics") as Stadistic
 
-        Log.e("ProfileActivity", "Stadistics: ${stadistics.toString()}")
+
 
         logo.setOnClickListener {
             onBackPressed()
