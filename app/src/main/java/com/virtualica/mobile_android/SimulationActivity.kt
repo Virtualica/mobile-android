@@ -126,14 +126,16 @@ class SimulationActivity : AppCompatActivity() {
 
     private fun getIndex(size : Int) : MutableSet<Int>{
         val indexToQuestion : MutableSet<Int> = mutableSetOf()
-        val random = Random
         if(size <= 20){
             while (indexToQuestion.size != size){
-                indexToQuestion.add(random.nextInt(0 until size))
+                val random = Random
+                val test = random.nextInt(0, size)
+                indexToQuestion.add(test)
             }
         } else {
             while (indexToQuestion.size != 20){
-                indexToQuestion.add(random.nextInt(0..size))
+                val random = Random
+                indexToQuestion.add(random.nextInt(0, size))
             }
         }
         return indexToQuestion
