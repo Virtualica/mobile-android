@@ -8,6 +8,7 @@ import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,6 +33,21 @@ class SimulationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_simulation)
         time()
         showFragment()
+        back_simulation.setOnClickListener(){
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Nunca es tarde para seguir estudiando, ¿Deseas salir?")
+                .setNegativeButton("No ¡Sigamos intentando!"){ _, _ ->
+
+                }
+                .setPositiveButton("¡Si!"){ _ , _ ->
+                    Log.e("test","funciona")
+                    val intent = Intent(this,FragmentActivity::class.java)
+                    startActivity(intent)
+
+                }
+                .show()
+
+        }
 
 
         back_simulation.setOnClickListener{
@@ -154,4 +170,6 @@ class SimulationActivity : AppCompatActivity() {
             }
             .show()
     }
+
+
 }

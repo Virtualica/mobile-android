@@ -17,7 +17,6 @@ class CategoryFragment : Fragment(), MycategoryRecyclerViewAdapter.OnItemClickLi
 
 
     override fun onCreateView(
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?

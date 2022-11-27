@@ -3,6 +3,7 @@ package com.virtualica.mobile_android
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
+import com.virtualica.mobile_android.models.Virtualica
 import com.virtualica.mobile_android.models.dataClasses.Category
+import com.virtualica.mobile_android.models.dataClasses.Stadistic
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.bottom_bar.*
 import java.io.File
@@ -22,18 +25,16 @@ class FragmentActivity : AppCompatActivity() {
 
     private lateinit var navigator:BottomNavigationView
     private lateinit var profile:ImageView
-    private lateinit var logo:ImageView
-    private val storage = Firebase.storage
     private  lateinit var appBar:AppBarLayout
     private lateinit var user : User
     private val db = Firebase.firestore
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bottom_bar)
         showFragment()
         appBar = findViewById(R.id.appbar)
+         val vr = Virtualica()
 
 
         val internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
@@ -61,12 +62,52 @@ class FragmentActivity : AppCompatActivity() {
 
         profile = findViewById(R.id.profileAppBar)
         profile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+            db.collection("estadisticas").whereEqualTo("idStudent",user.id).get().addOnSuccessListener { res ->
+                Log.e("TAG", "caluclateStadistics: ${res.documents.size}" )
+                var stadistics = Stadistic()
+                if(res.isEmpty){
+                    stadistics.idStudent = user.id
+                    stadistics.mejorRacha = 0
+                    stadistics.mejorCategoria = "Ninguna"
+                    stadistics.peorCategoria = "Ninguna"
+                }else{
+                    for (doc in res){
+                        Log.e("doc ",doc.data.toString())
+                        doc.toObject(Stadistic::class.java).also {
+                            it.id = doc.id
+                            stadistics = it
+                        }
+                        Log.e("look what it is ",stadistics.toString())
+                    }
+                }
+                Log.e("TAG", "onCreate: ${stadistics.toString()}" )
+                val intent = Intent(this, ProfileActivity::class.java).apply {
+                    putExtra("stadistics",stadistics)
+                }
+                startActivity(intent)
+            }
+
         }
 
+        val correctAnswered = intent.getIntExtra("correct",0)
+        val category = intent.getStringExtra("category")
+        val type = intent.getStringExtra("type")
+        Log.e("Se trajo este correct:  ",correctAnswered.toString())
+        Log.e("Se trajo esta category:  ",category.toString())
+        Log.e("Se trajo este type:  ",type.toString())
 
+        if(correctAnswered != 0 && category != null){
+            if(type=="simulacro"){
+                Log.e("Type:  ","Es simulacro")
+                vr.caluclateStadistics(user.id,correctAnswered,category.toString(),
+                    "$correctAnswered/100"
+                )
+            } else {
+                Log.e("Type:  ","Practica")
+                vr.caluclateStadistics(user.id,correctAnswered,category.toString(), "")
+            }
 
+        }
 
     }
 

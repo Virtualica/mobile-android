@@ -5,31 +5,27 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
 import com.virtualica.mobile_android.models.Virtualica
+import com.virtualica.mobile_android.models.dataClasses.Stadistic
 import com.virtualica.mobile_android.models.dataClasses.User
 import kotlinx.android.synthetic.main.profile.*
 import java.io.File
-import kotlin.math.log
+
 
 class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -38,6 +34,7 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
     private val storage = Firebase.storage
     private val db = Firebase.firestore
     private lateinit var user : User
+    private lateinit var stadistics : Stadistic
     private lateinit var internalMemory : SharedPreferences
     private var out = false
 
@@ -50,6 +47,11 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         internalMemory = getSharedPreferences("smart_insurance", MODE_PRIVATE)
         val json = internalMemory.getString("users", "NO_USER")
         user = Gson().fromJson(json, User::class.java)
+
+        Log.e("ProfileActivity", "User: ${user.name}")
+        stadistics = intent.extras?.getSerializable("stadistics") as Stadistic
+
+        Log.e("ProfileActivity", "Stadistics: ${stadistics.toString()}")
 
         logo.setOnClickListener {
             onBackPressed()
@@ -77,6 +79,10 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
         usuarioEdad.text = "Edad: " + user.age
         usuarioInstitucion.text = "Institución: " + user.institution
         usuarioCorreo.text = "Correo: " + user.email
+        pointsRacha.text = stadistics.mejorRacha.toString()
+        pointsSimulacro.text = stadistics.ultimoSimulacrio
+        asignaturaMejor.text = stadistics.mejorCategoria
+        asignaturaPeor.text = stadistics.peorCategoria
         if(user.foto != ""){
             profile.visibility = View.INVISIBLE
             progressBar10.visibility = View.VISIBLE
@@ -146,4 +152,6 @@ class ProfileActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissions
             }
         }
     }
+
+
 }

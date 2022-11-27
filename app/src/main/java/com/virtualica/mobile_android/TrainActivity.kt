@@ -13,16 +13,14 @@ import kotlinx.android.synthetic.main.practice.*
 class TrainActivity : AppCompatActivity() {
 
     private var db = Firebase.firestore
+    private var topic: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.practice)
         showFragment()
-
-
-
-
-        back_practice.setOnClickListener {
+        back_simulation.setOnClickListener {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Nunca se practica lo suficiente ¿Seguro que deseas salir?")
                 .setNegativeButton("¡Sigamos entrenando!") { _, _ ->
@@ -37,7 +35,7 @@ class TrainActivity : AppCompatActivity() {
     }
 
     private fun showFragment() {
-        val topic = intent.extras?.getString("topic")
+        topic = intent.extras?.getString("topic")
         val fragment = QuestionFragment()
         val bundle = Bundle()
 
